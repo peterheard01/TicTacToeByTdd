@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections;
+
 
 namespace TicTacToe.Test
 {
@@ -34,7 +33,7 @@ namespace TicTacToe.Test
         }
 
         [Test]
-        public void User_Chooses_To_Go_First_Then_Computer_Prompts_For_Their_First_Move_And_Blank_Board()
+        public void User_Chooses_To_Go_First_Then_Computer_Prompts_For_Their_Move_And_Blank_Board()
         {
             var game = new Game();
             game.UserSymbol = "x";
