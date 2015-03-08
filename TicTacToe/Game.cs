@@ -8,9 +8,11 @@ namespace TicTacToe
 {
     public class Game
     {
-        public string UserSymbol { get; set; }
+        public string UserChoice { get; set; }
 
         public string ComputerSymbol { get; set; }
+
+        public string UserSymbol { get; set; }
 
         public GameState GameState { get; set; }
 
@@ -21,14 +23,24 @@ namespace TicTacToe
 
         public void Generate()
         {
-            if (UserSymbol == null)
+            if (UserChoice == null)
             {
-                GameState.Message = "Please choose your symbol";
+                GameState.Message = "Please choose your symbol, 'x' or 'o'";
             }
             else
             {
-                GameState.Message = "Would you like to go first?";
-                ComputerSymbol = Flip(UserSymbol);
+                if (UserChoice == "y")
+                {
+                    GameState.Message = "Please make your move by typing 1-9";
+                }
+                else
+                {
+                    GameState.Message = "Would you like to go first? please type 'y' or 'n'";
+                    UserSymbol = UserChoice;
+                    ComputerSymbol = Flip(UserChoice);
+                }
+
+                
             }
 
             GameState.Board = new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" };
