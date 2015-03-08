@@ -5,3 +5,5 @@
 \\psf\Host\Stuff\code bases\2015\TicTacToe\TicTacToe.Test\obj\Debug\TicTacToe.Test.csprojResolveAssemblyReference.cache
 \\psf\Host\Stuff\code bases\2015\TicTacToe\TicTacToe.Test\obj\Debug\TicTacToe.Test.dll
 \\psf\Host\Stuff\code bases\2015\TicTacToe\TicTacToe.Test\obj\Debug\TicTacToe.Test.pdb
+\\psf\Host\Stuff\code bases\2015\TicTacToe\TicTacToe.Test\bin\Debug\nunit.framework.dll
+\\psf\Host\Stuff\code bases\2015\TicTacToe\TicTacToe.Test\bin\Debug\nunit.framework.xml
