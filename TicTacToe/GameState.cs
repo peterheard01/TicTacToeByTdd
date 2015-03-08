@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    public class Class1
+    public class GameState
     {
+        public string Message { get; set; }
+        public string[] Board { get; set; }
     }
 }
