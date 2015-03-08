@@ -7,7 +7,7 @@ namespace TicTacToe.Test
     [TestFixture]
     public class GameSetupTests
     {
-        private string[] _blankBoard = new string[9] {"_", "_", "_", "_", "_", "_", "_", "_", "_"};
+        private readonly string[] _blankBoard = new string[9] {"_", "_", "_", "_", "_", "_", "_", "_", "_"};
 
         [Test]
         public void Game_Start_Game_Shows_Empty_Board_And_Prompts_User_To_Choose_Symbol()
@@ -21,7 +21,7 @@ namespace TicTacToe.Test
 
         [TestCase("x","o")]
         [TestCase("o","x")]
-        public void User_Chooses_Makes_SymbolChoice_Computer_Opposite_And_Prompts_For_UserFirst_Choice(string userSymbolChoice, string computerSymbolChoice)
+        public void User_Makes_SymbolChoice_Computer_Makes_Opposite_And_Prompts_For_User_Go_First(string userSymbolChoice, string computerSymbolChoice)
         {
             var game = new Game();
             game.UserSymbol = userSymbolChoice;
