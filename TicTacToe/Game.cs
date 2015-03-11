@@ -39,16 +39,26 @@ namespace TicTacToe
 
         public void ReadUserInput(string userInput)
         {
-            if (userInput == "y")
+            if (GameState.GameStatus == GameStatus.GameStarted)
             {
-                GameState.Board = new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" };
-                GameState.GameStatus = GameStatus.GameStarted;
+                GameState.Board[4] = ComputerSymbol;
+                GameState.Board[0] = UserSymbol;
+
             }
-            else if (userInput == "n")
+            else if (GameState.GameStatus == GameStatus.PromptingUserGoFirst)
             {
-                GameState.Board = new string[9] {"_", "_", "_", "_", "o", "_", "_", "_", "_"};
-                GameState.GameStatus = GameStatus.GameStarted;
+                if (userInput == "y")
+                {
+                    GameState.Board = new string[9] {"_", "_", "_", "_", "_", "_", "_", "_", "_"};
+                    GameState.GameStatus = GameStatus.GameStarted;
+                }
+                else if (userInput == "n")
+                {
+                    GameState.Board = new string[9] {"_", "_", "_", "_", "o", "_", "_", "_", "_"};
+                    GameState.GameStatus = GameStatus.GameStarted;
+                }
             }
+            
             else
             {
                 UserSymbol = userInput;

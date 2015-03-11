@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="GameSetupTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameStartedTests.cs" />
+    <Compile Include="GameLoopTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicTacToe\TicTacToe.csproj">
