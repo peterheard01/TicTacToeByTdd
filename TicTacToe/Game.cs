@@ -8,7 +8,7 @@ namespace TicTacToe
 {
     public class Game
     {
-        public string UserChoice { get; set; }
+        //public string UserChoice { get; set; }
 
         public string ComputerSymbol { get; set; }
 
@@ -21,37 +21,63 @@ namespace TicTacToe
             GameState = new GameState();
         }
 
-        public void Generate()
+        public string Prompt()
         {
-            if (UserChoice == null)
+            if (GameState.GameStatus == GameStatus.PromptingUserSymbol)
             {
-                GameState.Message = "Please choose your symbol, 'x' or 'o'";
-                GameState.Board = new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" };
+                return "Which symbol would you like? plese type 'x' or 'o'";
+            }
+            else if (GameState.GameStatus == GameStatus.PromptingUserGoFirst)
+            {
+                return "Would you like to go first? please type 'y' or 'n'";
             }
             else
             {
-                if (UserChoice == "5")
-                {
-                    GameState.Message = "Please make your move by typing 1-9";
-                    GameState.Board = new string[9] { ComputerSymbol, "_", "_", "_", UserSymbol, "_", "_", "_", "_" };
-                }
-                else if (UserChoice == "y")
-                {
-                    GameState.Message = "Please make your move by typing 1-9";
-                    GameState.Board = new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" };
-                }
-                else
-                {
-                    GameState.Message = "Would you like to go first? please type 'y' or 'n'";
-                    UserSymbol = UserChoice;
-                    ComputerSymbol = Flip(UserSymbol);
-                    GameState.Board = new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" };
-                }
+                return "Please make your move by typing 1-9";
+            }
+        }
 
+        public void ReadUserInput(string userInput)
+        {
+            if (userInput == "y")
+            {
+                GameState.Board = new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" };
+                GameState.GameStatus = GameStatus.GameStarted;
+            }
+            else if (userInput == "n")
+            {
+                GameState.Board = new string[9] {"_", "_", "_", "_", "o", "_", "_", "_", "_"};
+                GameState.GameStatus = GameStatus.GameStarted;
+            }
+            else
+            {
+                UserSymbol = userInput;
+                ComputerSymbol = Flip(UserSymbol);
+                GameState.GameStatus = GameStatus.PromptingUserGoFirst;
             }
 
-            
+
         }
+
+
+
+           
+
+        //private string[] DrawBoard(string userChoiceArg)
+        //{
+        //    var board = new string[9] {"_", "_", "_", "_", "_", "_", "_", "_", "_"};
+        //    if (userChoiceArg != "")
+        //    {
+        //        board[4] = ComputerSymbol;
+        //    }
+        //    return board;
+        //}
+
+
+        //private bool UserWantsToGoFirst()
+        //{
+        //    return UserChoice == "y";
+        //}
 
         private string Flip(string symbolArg)
         {

@@ -1,22 +1,49 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace TicTacToe.Test
 {
     [TestFixture]
     public class GameStartedTests
     {
-        [Test]
-        public void Player_Chooses_Center_Computer_Chooses_First_Available_Corner()
+        private Game _game;
+
+        [SetUp]
+        public void Setup()
         {
-            var game = new Game();
-            game.UserSymbol = "x";
-            game.ComputerSymbol = "o";
-            game.UserChoice = "5";
-            game.Generate();
-
-            Assert.AreEqual(game.GameState.Message, "Please make your move by typing 1-9");
-            CollectionAssert.AreEqual(game.GameState.Board, new string[9] { "o", "_", "_", "_", "x", "_", "_", "_", "_" });
-
+            GameStarted();
         }
+
+        private void GameStarted()
+        {
+            _game = new Game();
+            _game.UserSymbol = "x";
+            _game.ComputerSymbol = "o";
+            
+        }
+
+        //[Test]
+        //public void Symbols_Chosen_User_Chooses_Go_Second_Then_Computer_Chooses_Middle()
+        //{
+        //    _game.UserChoice = "n";
+        //    _game.Generate();
+
+        //    Assert.AreEqual(_game.GameState.Message, "Please make your move by typing 1-9");
+        //    CollectionAssert.AreEqual(_game.GameState.Board, new string[9] { "_", "_", "_", "_", "o", "_", "_", "_", "_" });
+
+        //}
+
+
+        //[TestCase(new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" }, new string[9] { "_", "_", "_", "_", "o", "_", "_", "_", "_" })]
+        //public void Symbols_Chosen_User_Chooses_Go_Second_Comoputer_Chooses_Middle(string[] start, string[] end)
+        //{
+        //    _game.Generate();
+
+        //    Assert.AreEqual(_game.GameState.Message, "Please make your move by typing 1-9");
+        //    CollectionAssert.AreEqual(_game.GameState.Board, new string[9] { "o", "_", "_", "_", "x", "_", "_", "_", "_" });
+
+        //}
+
+
     }
 }

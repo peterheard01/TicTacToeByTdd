@@ -2,3 +2,4 @@
 \\psf\Host\Stuff\code bases\2015\TicTacToe\TicTacToe\bin\Debug\TicTacToe.pdb
 \\psf\Host\Stuff\code bases\2015\TicTacToe\TicTacToe\obj\Debug\TicTacToe.dll
 \\psf\Host\Stuff\code bases\2015\TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb
+\\psf\Host\Stuff\code bases\2015\TicTacToe\TicTacToe\obj\Debug\TicTacToe.csprojResolveAssemblyReference.cache

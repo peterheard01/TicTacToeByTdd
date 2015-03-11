@@ -9,7 +9,17 @@ Notes
 //Game shows empty board and asks player to choose symbol
 //When user selects symbol then game shows empty board and asks player if they would like to go first
 
-// : : when player goes
+
+// : : when compter goes first
+choose center if board empty
+when they choose edge choose 
+
+
+
+
+
+
+//DEFUNCT
 //When player places symbol on center then game will selects first corner piece
 //When first corner piece is taken then game will try next(corner)//triangulate
 //When all corners taken game will choose first edge
