@@ -7,16 +7,28 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    public enum PlaceTypes
+    //public enum PlaceTypes
+    //{
+    //    Edge, OppositeCorner, Corner
+    //}
+
+    public class Position
     {
-        Edge, OppositeCorner, Corner
+        public int Row { get; set; }
+        public int Column { get; set; }
+
+        public Position(int rowArg, int colArg)
+        {
+            Row = rowArg;
+            Column = colArg;
+        }
     }
 
     public class Game
     {
         public string ComputerSymbol { get; set; }
 
-        public string UserSymbol { get; set; }
+        public string PlayerSymbol { get; set; }
 
         public GameState GameState { get; set; }
 
@@ -61,110 +73,43 @@ namespace TicTacToe
 
         private void RunGameLoop(string userInput)
         {
-            //PlacePlayer(userInput);
+            PlacePlayer(userInput);
+            GameState.Board[2, 0] = "o";
 
-            //if (CanCreateTriangle())
-            //{
-            //    CreateTriangle();
-            //}
-            //else if (PlayerPlacedAt() == PlaceTypes.Edge)
-            //{
-            //    PlaceComputer(PlaceTypes.OppositeCorner);
-            //}
-
-            //if (PlayerTarget == 1)
-            //{
-            //    PlaceComputerAt(8);
-            //}
-            //else if (PlayerTarget == 3)
-            //{
-            //    PlaceComputerAt(7);
-            //}
-            //else if (PlayerTarget == 8)
-            //{
-            //    PlaceComputerAt(1);
-            //}
-            //else if (PlayerPlacedAt() == PlaceTypes.Edge)
-            //{
-            //    PlaceComputer(PlaceTypes.OppositeCorner);
-            //}
         }
 
-        //private bool CanCreateTriangle()
-        //{
-        //    return ComputerSymbolAt(5) && ComputerSymbolAtCorner();
 
-        //}
-
-        //private bool ComputerSymbolAtCorner()
-        //{
-        //    if (GameState.Board[0] == ComputerSymbol ||
-        //        GameState.Board[2] == ComputerSymbol ||
-        //        GameState.Board[6] == ComputerSymbol ||
-        //        GameState.Board[8] == ComputerSymbol)
-        //        return true;
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //private bool ComputerSymbolAt(int position)
-        //{
-        //    return GameState.Board[position - 1] == ComputerSymbol;
-        //}
-
-        //private void CreateTriangle()
-        //{
-        //    int[,] array = new int[3, 3];
-        //    array[]
+        private void PlacePlayer(string userInput)
+        {
+            int target = int.Parse(userInput);
             
-        //}
+            var position = FindPosition(target);
 
-      
+            GameState.Board[position.Row, position.Column] = PlayerSymbol;
+        }
 
-        //private void PlaceComputer(PlaceTypes placeType)
-        //{
-        //    switch (PlayerTarget)
-        //    {
-        //        case 2:
-        //            PlaceComputerAt(7);
-        //        break;
-        //        case 4:
-        //            PlaceComputerAt(9);
-        //        break;
-        //        case 6:
-        //            PlaceComputerAt(1);
-        //            break;
-        //        case 8:
-        //            PlaceComputerAt(3);
-        //        break;
-        //    }
-        //}
+        private static Position FindPosition(int target)
+        {
+            Dictionary<int, Position> map = new Dictionary<int, Position>();
+            map.Add(1, new Position(0, 0));
+            map.Add(2, new Position(0, 1));
+            map.Add(3, new Position(0, 2));
+            map.Add(4, new Position(1, 0));
+            map.Add(5, new Position(1, 1));
+            map.Add(6, new Position(1, 2));
+            map.Add(7, new Position(2, 0));
+            map.Add(8, new Position(2, 1));
+            map.Add(9, new Position(2, 2));
+            var place = map.First(x => x.Key == target).Value;
+            return place;
+        }
 
-        //private void PlaceComputerAt(int targetPos)
-        //{
-        //    GameState.Board[targetPos - 1] = ComputerSymbol;
-        //}
 
-        //private PlaceTypes? PlayerPlacedAt()
-        //{
-        //    if (PlayerTarget == 2 || PlayerTarget == 4 || PlayerTarget == 6 || PlayerTarget == 8)
-        //        return PlaceTypes.Edge;
-        //    return null;
-        //}
-
-        //private void PlacePlayer(string userInput)
-        //{
-        //    PlayerTarget = int.Parse(userInput);
-        //    int pos = PlayerTarget - 1;
-        //    GameState.Board[pos] = UserSymbol;
-        //}
-
+        //set up
         private void SetPlayerSymbols(string userInput)
         {
-            UserSymbol = userInput;
-            ComputerSymbol = Flip(UserSymbol);
+            PlayerSymbol = userInput;
+            ComputerSymbol = Flip(PlayerSymbol);
             GameState.GameStatus = GameStatus.PromptingUserGoFirst;
         }
 

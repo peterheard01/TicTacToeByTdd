@@ -26,20 +26,19 @@ namespace TicTacToe.Test
             game.GameState.GameStatus = GameStatus.PromptingUserSymbol;
             game.ReadUserInput(userSymbol);
 
-            Assert.AreEqual(game.UserSymbol, userSymbol);
+            Assert.AreEqual(game.PlayerSymbol, userSymbol);
             Assert.AreEqual(game.ComputerSymbol, computerSymbol);
             Assert.AreEqual(game.GameState.GameStatus,GameStatus.PromptingUserGoFirst);
             Assert.AreEqual(game.Prompt(), "Would you like to go first? please type 'y' or 'n'");
         }
 
 
-        [TestCase("y", " | | ," +
-                       " | | ," +
-                       " | | ,")]
-
-        [TestCase("n", " | | ," +
-                       " |o| ," +
-                       " | | ,")]
+        [TestCase("y", " | | " +
+                       " | | " +
+                       " | | ")]
+        [TestCase("n", " | | " +
+                       " |o| " +
+                       " | | ")]
         public void User_Prompted_To_Go_First(string userChoice, string board)
         {
             var game = new Game();
@@ -60,7 +59,6 @@ namespace TicTacToe.Test
             Assert.AreEqual(game.GameState.GameStatus, GameStatus.GameStarted);
             Assert.AreEqual(game.Prompt(), "Please make your move by typing 1-9");
         }
-
 
 
     }
