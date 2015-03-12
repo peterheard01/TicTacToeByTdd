@@ -32,7 +32,7 @@ namespace TicTacToe.Test
                                      " |o| " +
                                      " | |o")]
 
-        [TestCase(                   " |x| " +
+        [TestCase(" |x| " +
                                      " |o| " +
                                      " | |o",
                                      "1",
@@ -41,7 +41,7 @@ namespace TicTacToe.Test
                                      " | |o")]
 
 
-        //triangulation
+        ////triangulation
         [TestCase(" | | " +
                                     " |o| " +
                                     " | | ",
@@ -50,13 +50,13 @@ namespace TicTacToe.Test
                                     "x|o| " +
                                     " | |o")]
 
-        //[TestCase(" | | " +
-        //                            "x|o| " +
-        //                            " | |o",
-        //                            "1",
-        //                            "x| | " +
-        //                            "x|o| " +
-        //                            "o| |o")]
+        [TestCase(" | | " +
+                                    "x|o| " +
+                                    " | |o",
+                                    "1",
+                                    "x| | " +
+                                    "x|o| " +
+                                    "o| |o")]
 
         public void Computer_Went_First(string start, string userInput, string end)
         {

@@ -102,9 +102,9 @@ namespace TicTacToe
                     //scan the columns for the empty space and place it there
                     for (int row = 0; row <= 2; row++)
                     {
-                        if (GameState.Board[playerPositions[0].Row, row] == " ")
+                        if (GameState.Board[row, playerPositions[0].Column] == " ")
                         {
-                            GameState.Board[playerPositions[0].Row, row] = ComputerSymbol;
+                            GameState.Board[row, playerPositions[0].Column] = ComputerSymbol;
                         }
                     }
                 }
