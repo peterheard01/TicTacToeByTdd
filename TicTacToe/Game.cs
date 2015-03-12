@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TicTacToe
 {
+    public enum PlaceTypes
+    {
+        Edge,OppositeCorner
+    }
+
     public class Game
     {
-        //public string UserChoice { get; set; }
-
         public string ComputerSymbol { get; set; }
 
         public string UserSymbol { get; set; }
 
         public GameState GameState { get; set; }
+
+        public int PlayerTarget { get; set; }
 
         public Game()
         {
@@ -39,87 +45,89 @@ namespace TicTacToe
 
         public void ReadUserInput(string userInput)
         {
-            if (GameState.GameStatus == GameStatus.GameStarted)
+            switch (GameState.GameStatus)
             {
-                PlacePlayer(userInput);
-
-                if (userInput == "1")
-                {
-                    PlaceComputer(8);
-                }
-                else if (userInput == "3")
-                {
-                    PlaceComputer(7);
-                }
-                else if (userInput == "8")
-                {
-                    PlaceComputer(1);
-                }
-                else
-                {
-                    PlaceComputer(9);
-                }
-
-            }
-            else if (GameState.GameStatus == GameStatus.PromptingUserGoFirst)
-            {
-                if (userInput == "y")
-                {
-                    GameState.Board = new string[9] {"_", "_", "_", "_", "_", "_", "_", "_", "_"};
-                    GameState.GameStatus = GameStatus.GameStarted;
-                }
-                else if (userInput == "n")
-                {
-                    GameState.Board = new string[9] {"_", "_", "_", "_", "o", "_", "_", "_", "_"};
-                    GameState.GameStatus = GameStatus.GameStarted;
-                }
-            }
-            
-            else
-            {
-                UserSymbol = userInput;
-                ComputerSymbol = Flip(UserSymbol);
-                GameState.GameStatus = GameStatus.PromptingUserGoFirst;
-            }
-
-
+                case GameStatus.GameStarted:
+                    RunGameLoop(userInput);
+                break;
+                case GameStatus.PromptingUserGoFirst:
+                    StartGame(userInput);
+                break;
+                default:
+                    SetPlayerSymbols(userInput);
+                break;
+            }            
         }
 
-        private bool PlayerAt(int pos)
+        private void RunGameLoop(string userInput)
         {
-            return GameState.Board[pos - 1] == UserSymbol;
+            PlacePlayer(userInput);
+
+            if (PlayerTarget == 1)
+            {
+                PlaceComputerAt(8);
+            }
+            else if (PlayerTarget == 3)
+            {
+                PlaceComputerAt(7);
+            }
+            else if (PlayerTarget == 8)
+            {
+                PlaceComputerAt(1);
+            }
+            else if (PlayerPlacedAt() == PlaceTypes.Edge)
+            {
+                PlaceComputer(PlaceTypes.OppositeCorner);
+            }
         }
 
-        private void PlaceComputer(int pos)
+        private void PlaceComputer(PlaceTypes placeType)
         {
-            GameState.Board[pos-1] = ComputerSymbol;
+            if()
+
+           // if (placeType == PlaceTypes.OppositeCorner)
+               // PlaceComputerAt(9);
+        }
+
+        private void PlaceComputerAt(int targetPos)
+        {
+            GameState.Board[targetPos - 1] = ComputerSymbol;
+        }
+
+        private PlaceTypes? PlayerPlacedAt()
+        {
+            if (PlayerTarget == 2 || PlayerTarget == 4 || PlayerTarget == 6 || PlayerTarget == 8)
+                return PlaceTypes.Edge;
+            return null;
         }
 
         private void PlacePlayer(string userInput)
         {
-            int pos  = int.Parse(userInput) - 1;
+            PlayerTarget = int.Parse(userInput);
+            int pos = PlayerTarget - 1;
             GameState.Board[pos] = UserSymbol;
         }
 
+        private void SetPlayerSymbols(string userInput)
+        {
+            UserSymbol = userInput;
+            ComputerSymbol = Flip(UserSymbol);
+            GameState.GameStatus = GameStatus.PromptingUserGoFirst;
+        }
 
-
-           
-
-        //private string[] DrawBoard(string userChoiceArg)
-        //{
-        //    var board = new string[9] {"_", "_", "_", "_", "_", "_", "_", "_", "_"};
-        //    if (userChoiceArg != "")
-        //    {
-        //        board[4] = ComputerSymbol;
-        //    }
-        //    return board;
-        //}
-
-
-        //private bool UserWantsToGoFirst()
-        //{
-        //    return UserChoice == "y";
-        //}
+        private void StartGame(string userInput)
+        {
+            if (userInput == "y")
+            {
+                GameState.Board = new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" };
+                GameState.GameStatus = GameStatus.GameStarted;
+            }
+            else if (userInput == "n")
+            {
+                GameState.Board = new string[9] { "_", "_", "_", "_", "o", "_", "_", "_", "_" };
+                GameState.GameStatus = GameStatus.GameStarted;
+            }
+        }
 
         private string Flip(string symbolArg)
         {
