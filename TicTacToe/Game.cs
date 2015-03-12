@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace TicTacToe
 
         public GameState GameState { get; set; }
 
-        public int PlayerTarget { get; set; }
+        public Position PlayerTarget { get; set; }
 
         public Game()
         {
@@ -74,18 +75,98 @@ namespace TicTacToe
         private void RunGameLoop(string userInput)
         {
             PlacePlayer(userInput);
-            GameState.Board[2, 0] = "o";
 
+            var playerPositions = FindPlayerPositions();
+
+            if (playerPositions.Count == 2)
+            {
+                //same row
+                if (playerPositions[0].Row == playerPositions[1].Row &&
+                    (Math.Abs(playerPositions[0].Column - playerPositions[1].Column) == 1))
+                {
+
+                    //scan the columns for the empty space and place it there
+                    for (int column = 0; column <= 2; column++)
+                    {
+                        if (GameState.Board[playerPositions[0].Row, column] == " ")
+                        {
+                            GameState.Board[playerPositions[0].Row, column] = ComputerSymbol;
+                        }
+                    }
+                }
+
+                            //same column
+                else if (playerPositions[0].Column == playerPositions[1].Column &&
+                    (Math.Abs(playerPositions[0].Row - playerPositions[1].Row) == 1))
+                {
+                    //scan the columns for the empty space and place it there
+                    for (int row = 0; row <= 2; row++)
+                    {
+                        if (GameState.Board[playerPositions[0].Row, row] == " ")
+                        {
+                            GameState.Board[playerPositions[0].Row, row] = ComputerSymbol;
+                        }
+                    }
+                }
+
+            }
+
+            
+
+
+
+
+            else if (PlayerTarget.Row == 0 || PlayerTarget.Row == 2)
+            {
+                if (PlayerTarget.Row == 0)
+                    GameState.Board[PlayerTarget.Row + 2, PlayerTarget.Column + 1] = "o";
+                else if (PlayerTarget.Row == 2)
+                    GameState.Board[PlayerTarget.Row - 2, PlayerTarget.Column + 1] = "o";
+
+            }
+            else if (PlayerTarget.Row == 1)
+            {
+                if (PlayerTarget.Column == 0)
+                    GameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column + 2] = "o";
+                else if (PlayerTarget.Column == 2)
+                    GameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column - 2] = "o";
+            }
+
+        }
+
+        private List<Position> FindPlayerPositions()
+        {
+            var retVals = new List<Position>();
+            for (int row = 0; row <= 2; row++)
+            {
+                for (int column = 0; column <= 2; column++)
+                {
+                    if (GameState.Board[row,column] == PlayerSymbol)
+                    {
+                        retVals.Add(new Position(row,column));
+                    }
+                }
+            }
+            return retVals;
+
+            //var retVals = new List<Position>();
+            //retVals.AddRange(GameState.Board[]);
+
+            //foreach (var position in GameState.Board)
+            //{
+            //    if(position.)
+            //}
         }
 
 
         private void PlacePlayer(string userInput)
         {
-            int target = int.Parse(userInput);
             
-            var position = FindPosition(target);
+            int target = int.Parse(userInput);
 
-            GameState.Board[position.Row, position.Column] = PlayerSymbol;
+            PlayerTarget = FindPosition(target);
+
+            GameState.Board[PlayerTarget.Row, PlayerTarget.Column] = PlayerSymbol;
         }
 
         private static Position FindPosition(int target)

@@ -24,20 +24,40 @@ namespace TicTacToe.Test
         }
 
 
-        [TestCase(                  " | | " +
+        [TestCase(" | | " +
+                                     " |o| " +
+                                     " | | ",
+                                     "2",
+                                     " |x| " +
+                                     " |o| " +
+                                     " | |o")]
+
+        [TestCase(                   " |x| " +
+                                     " |o| " +
+                                     " | |o",
+                                     "1",
+                                     "x|x|o" +
+                                     " |o| " +
+                                     " | |o")]
+
+
+        //triangulation
+        [TestCase(" | | " +
                                     " |o| " +
-                                    " | | " ,
-                                    "1", 
-                                    "x| | " +
-                                    " |o| " +
-                                    "o| | " )]
-        //[TestCase(                  " | | " +
-        //                            " |o| " +
-        //                            " | | ",
-        //                            "4",
-        //                            " | | " +
+                                    " | | ",
+                                    "4",
+                                    " | | " +
+                                    "x|o| " +
+                                    " | |o")]
+
+        //[TestCase(" | | " +
         //                            "x|o| " +
-        //                            " | |o")]
+        //                            " | |o",
+        //                            "1",
+        //                            "x| | " +
+        //                            "x|o| " +
+        //                            "o| |o")]
+
         public void Computer_Went_First(string start, string userInput, string end)
         {
             _game.GameState.Board = Helper.CreateBoardFromTestData(start);
