@@ -41,8 +41,24 @@ namespace TicTacToe
         {
             if (GameState.GameStatus == GameStatus.GameStarted)
             {
-                GameState.Board[4] = ComputerSymbol;
-                GameState.Board[0] = UserSymbol;
+                PlacePlayer(userInput);
+
+                if (userInput == "1")
+                {
+                    PlaceComputer(8);
+                }
+                else if (userInput == "3")
+                {
+                    PlaceComputer(7);
+                }
+                else if (userInput == "8")
+                {
+                    PlaceComputer(1);
+                }
+                else
+                {
+                    PlaceComputer(9);
+                }
 
             }
             else if (GameState.GameStatus == GameStatus.PromptingUserGoFirst)
@@ -67,6 +83,22 @@ namespace TicTacToe
             }
 
 
+        }
+
+        private bool PlayerAt(int pos)
+        {
+            return GameState.Board[pos - 1] == UserSymbol;
+        }
+
+        private void PlaceComputer(int pos)
+        {
+            GameState.Board[pos-1] = ComputerSymbol;
+        }
+
+        private void PlacePlayer(string userInput)
+        {
+            int pos  = int.Parse(userInput) - 1;
+            GameState.Board[pos] = UserSymbol;
         }
 
 

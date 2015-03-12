@@ -23,39 +23,42 @@ namespace TicTacToe.Test
             _game.GameState.GameStatus = GameStatus.GameStarted;
         }
 
+
         [TestCase(new string[9] {   "_", "_", "_", 
                                     "_", "o", "_", 
-                                    "_", "_", "_" }, 
-                                    "1", new string[9] ///////
-        {                           "x", "_", "_", 
-                                    "_", "o", "_", 
-                                    "_", "_", "_" })]
+                                    "_", "_", "_" },
+                                    "4", new string[9] 
+        {                           "_", "_", "_", 
+                                    "x", "o", "_", 
+                                    "_", "_", "o" })]
+        [TestCase(new string[9] {   "_", "_", "_", 
+                                    "x", "o", "_", 
+                                    "_", "_", "o"  },
+                                    "3", new string[9] 
+        {                           "_", "_", "x", 
+                                    "x", "o", "_", 
+                                    "o", "_", "o" })]
+        [TestCase(new string[9] {   "_", "_", "x", 
+                                    "x", "o", "_", 
+                                    "o", "_", "o"  },
+                                    "8", new string[9] 
+        {                           "o", "_", "x", 
+                                    "x", "o", "_", 
+                                    "o", "x", "o" })]
+        [TestCase(new string[9] {   "_", "_", "x", 
+                                    "x", "o", "_", 
+                                    "o", "_", "o"  },
+                                    "1", new string[9] 
+        {                           "x", "_", "x", 
+                                    "x", "o", "_", 
+                                    "o", "o", "o" })]
 
-        //[TestCase(new string[9] {   "_", "_", "_", 
-        //                            "_", "o", "_", 
-        //                            "_", "_", "_" },
-        //                            "4", new string[9] ///////
-        //{                           "_", "_", "o", 
-        //                            "x", "o", "_", 
-        //                            "_", "_", "_" })]
-        public void Cases(string[] start, string userInput, string[] end)
+        public void Computer_Went_First(string[] start, string userInput, string[] end)
         {
             _game.GameState.Board = start;
             _game.ReadUserInput(userInput);
             CollectionAssert.AreEqual(_game.GameState.Board, end);
         }
-
-        //user goes first
-        //[Test]
-        //public void User_Goes_First_Computer_Responds()
-        //{
-        //    _game.ReadUserInput("5");
-        //    CollectionAssert.AreEqual(_game.GameState.Board, new string[9] { "o", "_", "_", "_", "x", "_", "_", "_", "_" });
-        //}
-
-
-        
-
 
     }
 }
