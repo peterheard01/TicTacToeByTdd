@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using NUnit.Framework;
 
 
@@ -7,8 +9,6 @@ namespace TicTacToe.Test
     [TestFixture]
     public class GameSetupTests
     {
-        private readonly string[] _blankBoard = new string[9]{"_", "_", "_","_", "_", "_","_", "_", "_"};
-
         [Test]
         public void Prompt_For_User_Symbol()
         {
@@ -32,15 +32,21 @@ namespace TicTacToe.Test
             Assert.AreEqual(game.Prompt(), "Would you like to go first? please type 'y' or 'n'");
         }
 
-        [TestCase("y", new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" })]
-        [TestCase("n", new string[9] { "_", "_", "_", "_", "o", "_", "_", "_", "_" })]
-        public void User_Prompted_To_Go_First(string userChoice, string[] boardInitState)
+
+        [TestCase("y", " | | ," +
+                       " | | ," +
+                       " | | ,")]
+
+        [TestCase("n", " | | ," +
+                       " |o| ," +
+                       " | | ,")]
+        public void User_Prompted_To_Go_First(string userChoice, string board)
         {
             var game = new Game();
             game.GameState.GameStatus = GameStatus.PromptingUserGoFirst;
             game.ReadUserInput(userChoice);
 
-            Assert.AreEqual(game.GameState.Board, boardInitState);
+            Assert.AreEqual(game.GameState.Board, Helper.CreateBoardFromTestData(board));
             Assert.AreEqual(game.GameState.GameStatus, GameStatus.GameStarted);
             Assert.AreEqual(game.Prompt(), "Please make your move by typing 1-9");
         }
@@ -54,6 +60,8 @@ namespace TicTacToe.Test
             Assert.AreEqual(game.GameState.GameStatus, GameStatus.GameStarted);
             Assert.AreEqual(game.Prompt(), "Please make your move by typing 1-9");
         }
+
+
 
     }
 }

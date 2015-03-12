@@ -7,12 +7,12 @@ namespace TicTacToe
 {
     public class GameState
     {
-        public string[] Board { get; set; }
+        public string[,] Board { get; set; }
         public GameStatus GameStatus { get; set; }
 
         public GameState()
         {
-            Board = new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" };
+            Board = new string[3, 3] { { "_", "_", "_" }, { "_", "_", "_" }, { "_", "_", "_" } };
         }
 
     }

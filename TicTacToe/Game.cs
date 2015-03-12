@@ -9,7 +9,7 @@ namespace TicTacToe
 {
     public enum PlaceTypes
     {
-        Edge,OppositeCorner
+        Edge, OppositeCorner, Corner
     }
 
     public class Game
@@ -61,52 +61,105 @@ namespace TicTacToe
 
         private void RunGameLoop(string userInput)
         {
-            PlacePlayer(userInput);
+            //PlacePlayer(userInput);
 
-            if (PlayerTarget == 1)
-            {
-                PlaceComputerAt(8);
-            }
-            else if (PlayerTarget == 3)
-            {
-                PlaceComputerAt(7);
-            }
-            else if (PlayerTarget == 8)
-            {
-                PlaceComputerAt(1);
-            }
-            else if (PlayerPlacedAt() == PlaceTypes.Edge)
-            {
-                PlaceComputer(PlaceTypes.OppositeCorner);
-            }
+            //if (CanCreateTriangle())
+            //{
+            //    CreateTriangle();
+            //}
+            //else if (PlayerPlacedAt() == PlaceTypes.Edge)
+            //{
+            //    PlaceComputer(PlaceTypes.OppositeCorner);
+            //}
+
+            //if (PlayerTarget == 1)
+            //{
+            //    PlaceComputerAt(8);
+            //}
+            //else if (PlayerTarget == 3)
+            //{
+            //    PlaceComputerAt(7);
+            //}
+            //else if (PlayerTarget == 8)
+            //{
+            //    PlaceComputerAt(1);
+            //}
+            //else if (PlayerPlacedAt() == PlaceTypes.Edge)
+            //{
+            //    PlaceComputer(PlaceTypes.OppositeCorner);
+            //}
         }
 
-        private void PlaceComputer(PlaceTypes placeType)
-        {
-            if()
+        //private bool CanCreateTriangle()
+        //{
+        //    return ComputerSymbolAt(5) && ComputerSymbolAtCorner();
 
-           // if (placeType == PlaceTypes.OppositeCorner)
-               // PlaceComputerAt(9);
-        }
+        //}
 
-        private void PlaceComputerAt(int targetPos)
-        {
-            GameState.Board[targetPos - 1] = ComputerSymbol;
-        }
+        //private bool ComputerSymbolAtCorner()
+        //{
+        //    if (GameState.Board[0] == ComputerSymbol ||
+        //        GameState.Board[2] == ComputerSymbol ||
+        //        GameState.Board[6] == ComputerSymbol ||
+        //        GameState.Board[8] == ComputerSymbol)
+        //        return true;
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        private PlaceTypes? PlayerPlacedAt()
-        {
-            if (PlayerTarget == 2 || PlayerTarget == 4 || PlayerTarget == 6 || PlayerTarget == 8)
-                return PlaceTypes.Edge;
-            return null;
-        }
+        //private bool ComputerSymbolAt(int position)
+        //{
+        //    return GameState.Board[position - 1] == ComputerSymbol;
+        //}
 
-        private void PlacePlayer(string userInput)
-        {
-            PlayerTarget = int.Parse(userInput);
-            int pos = PlayerTarget - 1;
-            GameState.Board[pos] = UserSymbol;
-        }
+        //private void CreateTriangle()
+        //{
+        //    int[,] array = new int[3, 3];
+        //    array[]
+            
+        //}
+
+      
+
+        //private void PlaceComputer(PlaceTypes placeType)
+        //{
+        //    switch (PlayerTarget)
+        //    {
+        //        case 2:
+        //            PlaceComputerAt(7);
+        //        break;
+        //        case 4:
+        //            PlaceComputerAt(9);
+        //        break;
+        //        case 6:
+        //            PlaceComputerAt(1);
+        //            break;
+        //        case 8:
+        //            PlaceComputerAt(3);
+        //        break;
+        //    }
+        //}
+
+        //private void PlaceComputerAt(int targetPos)
+        //{
+        //    GameState.Board[targetPos - 1] = ComputerSymbol;
+        //}
+
+        //private PlaceTypes? PlayerPlacedAt()
+        //{
+        //    if (PlayerTarget == 2 || PlayerTarget == 4 || PlayerTarget == 6 || PlayerTarget == 8)
+        //        return PlaceTypes.Edge;
+        //    return null;
+        //}
+
+        //private void PlacePlayer(string userInput)
+        //{
+        //    PlayerTarget = int.Parse(userInput);
+        //    int pos = PlayerTarget - 1;
+        //    GameState.Board[pos] = UserSymbol;
+        //}
 
         private void SetPlayerSymbols(string userInput)
         {
@@ -119,12 +172,12 @@ namespace TicTacToe
         {
             if (userInput == "y")
             {
-                GameState.Board = new string[9] { "_", "_", "_", "_", "_", "_", "_", "_", "_" };
+                GameState.Board = new string[3,3] { {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "} };
                 GameState.GameStatus = GameStatus.GameStarted;
             }
             else if (userInput == "n")
             {
-                GameState.Board = new string[9] { "_", "_", "_", "_", "o", "_", "_", "_", "_" };
+                GameState.Board = new string[3, 3] { { " ", " ", " " }, { " ", "o", " " }, { " ", " ", " " } };
                 GameState.GameStatus = GameStatus.GameStarted;
             }
         }
