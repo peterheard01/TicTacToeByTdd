@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TicTacToe
 {
@@ -16,21 +12,19 @@ namespace TicTacToe
         }
 
         #region queries
-        public Position FindOppositeCorner(Position pos)
+        public Position CalculateOppositeCorner(Position pos)
         {
-            Position oppositeCorner;
-            int newColumn = pos.Column + 2;
-            int newRow = pos.Row + 2;
-            if (newColumn > 2)
+            return new Position(Shift(pos.Row), Shift(pos.Column));
+        }
+
+        private int Shift(int pos)
+        {
+            int newPos = pos + 2;
+            if (newPos > 2)
             {
-                newColumn = 0;
+                newPos = 0;
             }
-            if (newRow > 2)
-            {
-                newRow = 0;
-            }
-            oppositeCorner = new Position(newRow, newColumn);
-            return oppositeCorner;
+            return newPos;
         }
 
         public List<Position> FindPositions(string symBolToCheck)

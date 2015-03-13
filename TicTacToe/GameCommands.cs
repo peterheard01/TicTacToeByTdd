@@ -66,7 +66,7 @@ namespace TicTacToe
 
         private bool PlaceAtOppositeCorner(Position pos)
         {
-            var oppositeCorner = _gameQueries.FindOppositeCorner(pos);
+            var oppositeCorner = _gameQueries.CalculateOppositeCorner(pos);
             return PlaceIfEmpty(oppositeCorner.Row, oppositeCorner.Column, _gameState.ComputerSymbol);
         }
 
