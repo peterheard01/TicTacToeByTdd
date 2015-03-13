@@ -18,6 +18,10 @@ namespace TicTacToe
         public int Row { get; set; }
         public int Column { get; set; }
 
+        public bool IsCenter {
+            get { return Row == 1 && Column == 1; }
+        }
+
         public Position(int rowArg, int colArg)
         {
             Row = rowArg;
@@ -76,14 +80,64 @@ namespace TicTacToe
         {
             PlacePlayer(userInput);
 
-            var playerPositions = FindPlayerPositions();
+            var playerPositions = FindPlayerPositions(PlayerSymbol);
+            var computerPositions = FindPlayerPositions(ComputerSymbol);
 
-            if (playerPositions.Count == 3)
+            if(playerPositions.Count == 3)
             {
+                foreach(var pos in computerPositions)
+                {
+                    //check if it is corner cell
+                    if (((pos.Column + pos.Row)%2) == 0 && !pos.IsCenter)
+                    {
+                        //if the opposite corner is free
+                        var oppositeCorner = FindOppositeCorner(pos);
+                        if (GameState.Board[oppositeCorner.Row, oppositeCorner.Column] == " ")
+                        {
+                            GameState.Board[oppositeCorner.Row, oppositeCorner.Column] = ComputerSymbol;
+                        }
+                        else
+                        {
+
+                            
+                            //must then be a triangle shape so fill in the middle
+                            //extract the other positions that are not the center
+                            var otherPositions = computerPositions.Where(x => (x.Column != pos.Column) || (x.Row != pos.Row)).ToList();
+                            var otherNonCenterPosition = otherPositions.Where(x => !x.IsCenter).Single();
+
+                            //if on the same row
+                            if (otherNonCenterPosition.Row == pos.Row)
+                            {
+                                //find the gap
+                                for (int column = 0; column < 2; column++)
+                                {
+                                    if (GameState.Board[pos.Row, column] == " ")
+                                    {
+                                        GameState.Board[pos.Row, column] = ComputerSymbol;
+                                    }
+                                }
+                            }
+                            else if (otherNonCenterPosition.Column == pos.Column)
+                            {
+                                for (int row = 0; row < 2; row++)
+                                {
+                                    if (GameState.Board[row, pos.Column] == " ")
+                                    {
+                                        GameState.Board[row, pos.Column] = ComputerSymbol;
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+
+                }
             }
-
-            else if (playerPositions.Count == 2)
+            else if(playerPositions.Count == 2)
             {
+
+                //block the player
                 //same row
                 if (playerPositions[0].Row == playerPositions[1].Row &&
                     (Math.Abs(playerPositions[0].Column - playerPositions[1].Column) == 1))
@@ -98,8 +152,7 @@ namespace TicTacToe
                         }
                     }
                 }
-
-                            //same column
+                //same column
                 else if (playerPositions[0].Column == playerPositions[1].Column &&
                     (Math.Abs(playerPositions[0].Row - playerPositions[1].Row) == 1))
                 {
@@ -115,7 +168,7 @@ namespace TicTacToe
 
             }
 
-            else if (playerPositions.Count == 1)
+            else if(playerPositions.Count == 1)
             {
                 if (PlayerTarget.Row == 0 || PlayerTarget.Row == 2)
                 {
@@ -135,37 +188,46 @@ namespace TicTacToe
                 
             }
             
-           
         }
 
-        private List<Position> FindPlayerPositions()
+        private Position FindOppositeCorner(Position pos)
+        {
+            Position oppositeCorner;
+            int newColumn = pos.Column + 2;
+            int newRow = pos.Row + 2;
+
+            if (newColumn > 2)
+            {
+                newColumn = 0;
+            }
+
+            if (newRow > 2)
+            {
+                newRow = 0;
+            }
+            oppositeCorner = new Position(newRow, newColumn);
+            return oppositeCorner;
+        }
+
+        private List<Position> FindPlayerPositions(string symBolToCheck)
         {
             var retVals = new List<Position>();
             for (int row = 0; row <= 2; row++)
             {
                 for (int column = 0; column <= 2; column++)
                 {
-                    if (GameState.Board[row,column] == PlayerSymbol)
+                    if (GameState.Board[row,column] == symBolToCheck)
                     {
                         retVals.Add(new Position(row,column));
                     }
                 }
             }
             return retVals;
-
-            //var retVals = new List<Position>();
-            //retVals.AddRange(GameState.Board[]);
-
-            //foreach (var position in GameState.Board)
-            //{
-            //    if(position.)
-            //}
         }
 
 
         private void PlacePlayer(string userInput)
         {
-            
             int target = int.Parse(userInput);
 
             PlayerTarget = FindPosition(target);

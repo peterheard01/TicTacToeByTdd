@@ -32,24 +32,24 @@ namespace TicTacToe.Test
                                      " |o| " +
                                      " | |o")]
 
-        [TestCase(                   " |x| " +
+        [TestCase(" |x| " +
                                      " |o| " +
                                      " | |o",
                                      "1",
                                      "x|x|o" +
                                      " |o| " +
                                      " | |o")]
-        [TestCase(                   "x|x|o" +
-                                     " |o| " +
-                                     " | |o",
-                                     "6",
-                                     "x|x|o" +
-                                     " |o|x" +
-                                     "o| |o")]
+        //[TestCase("x|x|o" +
+        //                               " |o| " +
+        //                               " | |o",
+        //                               "6",
+        //                               "x|x|o" +
+        //                               " |o|x" +
+        //                               "o| |o")] 
 
 
         //triangulation
-        [TestCase(                  " | | " +
+        [TestCase(" | | " +
                                     " |o| " +
                                     " | | ",
                                     "4",
@@ -57,20 +57,28 @@ namespace TicTacToe.Test
                                     "x|o| " +
                                     " | |o")]
 
-        [TestCase(                  " | | " +
+        [TestCase(" | | " +
                                     "x|o| " +
                                     " | |o",
                                     "1",
                                     "x| | " +
                                     "x|o| " +
                                     "o| |o")]
-        [TestCase(                  "x| | " +
+        [TestCase("x| | " +
                                     "x|o| " +
                                     "o| |o",
-                                    "1",
+                                    "3",
                                     "x| |x" +
                                     "x|o| " +
                                     "o|o|o")]
+
+        [TestCase(                 "x|x|o" +
+                                   " |o| " +
+                                   " | |o",
+                                   "7",
+                                   "x|x|o" +
+                                   " |o|o" +
+                                   "x| |o")]
 
         public void Computer_Went_First(string start, string userInput, string end)
         {
@@ -81,20 +89,6 @@ namespace TicTacToe.Test
 
 
 
-        //[TestCase(new string[9] {   "_", "_", "_", 
-        //                            "x", "o", "_", 
-        //                            "_", "_", "o"  },
-        //                            "3", new string[9] 
-        //{                           "_", "_", "x", 
-        //                            "x", "o", "_", 
-        //                            "o", "_", "o" })]
-        //[TestCase(new string[9] {   "_", "_", "_", 
-        //                            "_", "o", "_", 
-        //                            "_", "_", "_" },
-        //                            "4", new string[9] 
-        //{                           "_", "_", "_", 
-        //                            "x", "o", "_", 
-        //                            "_", "_", "o" })]
 
 
 
