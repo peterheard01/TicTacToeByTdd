@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    //public enum PlaceTypes
-    //{
-    //    Edge, OppositeCorner, Corner
-    //}
-
     public class Position
     {
         public int Row { get; set; }
@@ -99,7 +90,6 @@ namespace TicTacToe
                         else
                         {
 
-                            
                             //must then be a triangle shape so fill in the middle
                             //extract the other positions that are not the center
                             var otherPositions = computerPositions.Where(x => (x.Column != pos.Column) || (x.Row != pos.Row)).ToList();
