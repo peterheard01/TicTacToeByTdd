@@ -1,6 +1,6 @@
 # TicTacToeByTdd
 
-A TDD Exercise for the Tic Tac Toe game. An example of clean code.
+A TDD exercise for the Tic Tac Toe game. An example of Clean Code.
 
 
 
