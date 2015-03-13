@@ -13,6 +13,10 @@ namespace TicTacToe
 
         public string[,] Board { get; set; }
 
+        public List<Position> PlayerPositions { get; set; }
+        
+        public List<Position> ComputerPositons { get; set; }
+
         public GameStatus GameStatus { get; set; }
 
         public GameState()

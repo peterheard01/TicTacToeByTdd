@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="GameCommands.cs" />
     <Compile Include="GameLoop.cs" />
+    <Compile Include="GameQueries.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GameStatus.cs" />
     <Compile Include="Position.cs" />
