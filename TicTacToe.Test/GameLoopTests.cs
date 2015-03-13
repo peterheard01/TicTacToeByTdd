@@ -16,8 +16,8 @@ namespace TicTacToe.Test
         private void GameStarted()
         {
             _game = new Game();
-            _game.PlayerSymbol = "x";
-            _game.ComputerSymbol = "o";
+            _game.GameState.PlayerSymbol = "x";
+            _game.GameState.ComputerSymbol = "o";
             _game.GameState.GameStatus = GameStatus.GameStarted;
         }
 

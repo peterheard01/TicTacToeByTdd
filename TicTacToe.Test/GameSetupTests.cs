@@ -26,8 +26,8 @@ namespace TicTacToe.Test
             game.GameState.GameStatus = GameStatus.PromptingUserSymbol;
             game.ReadUserInput(userSymbol);
 
-            Assert.AreEqual(game.PlayerSymbol, userSymbol);
-            Assert.AreEqual(game.ComputerSymbol, computerSymbol);
+            Assert.AreEqual(game.GameState.PlayerSymbol, userSymbol);
+            Assert.AreEqual(game.GameState.ComputerSymbol, computerSymbol);
             Assert.AreEqual(game.GameState.GameStatus,GameStatus.PromptingUserGoFirst);
             Assert.AreEqual(game.Prompt(), "Would you like to go first? please type 'y' or 'n'");
         }

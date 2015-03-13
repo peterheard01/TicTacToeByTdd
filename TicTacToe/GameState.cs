@@ -7,7 +7,12 @@ namespace TicTacToe
 {
     public class GameState
     {
+        public string ComputerSymbol { get; set; }
+
+        public string PlayerSymbol { get; set; }
+
         public string[,] Board { get; set; }
+
         public GameStatus GameStatus { get; set; }
 
         public GameState()
