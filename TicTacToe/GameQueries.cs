@@ -12,7 +12,7 @@ namespace TicTacToe
         }
 
         #region queries
-        public Position CalculateOppositeCorner(Position pos)
+        public Position CalculateOppositeDiagonalCorner(Position pos)
         {
             return new Position(Shift(pos.Row), Shift(pos.Column));
         }

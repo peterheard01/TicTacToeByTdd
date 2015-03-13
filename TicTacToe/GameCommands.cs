@@ -23,11 +23,11 @@ namespace TicTacToe
         {
             foreach (var pos in _gameState.ComputerPositons)
             {
-                if (PositionIsACornerCell(pos))
+                if (IsCornerCell(pos))
                 {
-                    if (!PlaceAtOppositeCorner(pos))
+                    if (!PlaceAtDiagonalCorner(pos))
                     {
-                        FindAndPlaceInCentre(pos);
+                        FindAndPlaceInBetween(pos);
                     }
                 }
             }
@@ -64,13 +64,13 @@ namespace TicTacToe
             }
         }
 
-        private bool PlaceAtOppositeCorner(Position pos)
+        private bool PlaceAtDiagonalCorner(Position pos)
         {
-            var oppositeCorner = _gameQueries.CalculateOppositeCorner(pos);
+            var oppositeCorner = _gameQueries.CalculateOppositeDiagonalCorner(pos);
             return PlaceIfEmpty(oppositeCorner.Row, oppositeCorner.Column, _gameState.ComputerSymbol);
         }
 
-        private void FindAndPlaceInCentre(Position pos)
+        private void FindAndPlaceInBetween(Position pos)
         {
             var otherPositions = _gameState.ComputerPositons.Where(x => (x.Column != pos.Column) || (x.Row != pos.Row)).ToList();
             var otherNonCenterPosition = otherPositions.Single(x => !x.IsCenter);
@@ -110,7 +110,7 @@ namespace TicTacToe
             }
         }
 
-        private static bool PositionIsACornerCell(Position pos)
+        private static bool IsCornerCell(Position pos)
         {
             return ((pos.Column + pos.Row) % 2) == 0 && !pos.IsCenter;
         }
