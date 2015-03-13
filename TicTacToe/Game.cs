@@ -78,7 +78,11 @@ namespace TicTacToe
 
             var playerPositions = FindPlayerPositions();
 
-            if (playerPositions.Count == 2)
+            if (playerPositions.Count == 3)
+            {
+            }
+
+            else if (playerPositions.Count == 2)
             {
                 //same row
                 if (playerPositions[0].Row == playerPositions[1].Row &&
@@ -111,27 +115,27 @@ namespace TicTacToe
 
             }
 
+            else if (playerPositions.Count == 1)
+            {
+                if (PlayerTarget.Row == 0 || PlayerTarget.Row == 2)
+                {
+                    if (PlayerTarget.Row == 0)
+                        GameState.Board[PlayerTarget.Row + 2, PlayerTarget.Column + 1] = "o";
+                    else if (PlayerTarget.Row == 2)
+                        GameState.Board[PlayerTarget.Row - 2, PlayerTarget.Column + 1] = "o";
+
+                }
+                else if (PlayerTarget.Row == 1)
+                {
+                    if (PlayerTarget.Column == 0)
+                        GameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column + 2] = "o";
+                    else if (PlayerTarget.Column == 2)
+                        GameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column - 2] = "o";
+                }
+                
+            }
             
-
-
-
-
-            else if (PlayerTarget.Row == 0 || PlayerTarget.Row == 2)
-            {
-                if (PlayerTarget.Row == 0)
-                    GameState.Board[PlayerTarget.Row + 2, PlayerTarget.Column + 1] = "o";
-                else if (PlayerTarget.Row == 2)
-                    GameState.Board[PlayerTarget.Row - 2, PlayerTarget.Column + 1] = "o";
-
-            }
-            else if (PlayerTarget.Row == 1)
-            {
-                if (PlayerTarget.Column == 0)
-                    GameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column + 2] = "o";
-                else if (PlayerTarget.Column == 2)
-                    GameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column - 2] = "o";
-            }
-
+           
         }
 
         private List<Position> FindPlayerPositions()
