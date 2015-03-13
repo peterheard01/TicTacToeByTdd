@@ -33,35 +33,6 @@ namespace TicTacToe
             }
         }
 
-        private bool PlaceAtOppositeCorner(Position pos)
-        {
-            var oppositeCorner = _gameQueries.FindOppositeCorner(pos);
-            return PlaceIfEmpty(oppositeCorner.Row, oppositeCorner.Column, _gameState.ComputerSymbol);
-        }
-
-        private void FindAndPlaceInCentre(Position pos)
-        {
-            var otherPositions = _gameState.ComputerPositons.Where(x => (x.Column != pos.Column) || (x.Row != pos.Row)).ToList();
-            var otherNonCenterPosition = otherPositions.Single(x => !x.IsCenter);
-
-            if (otherNonCenterPosition.Row == pos.Row)
-            {
-                ScanColumsAndPlace(pos.Row);
-            }
-            else if (otherNonCenterPosition.Column == pos.Column)
-            {
-                ScanRowsAndPlace(pos.Column); 
-            }
-        }
-
-        private void ScanRowsAndPlace(int pos)
-        {
-            for (int row = 0; row <= 2; row++)
-            {
-                PlaceIfEmpty(row, pos, _gameState.ComputerSymbol);
-            }
-        }
-
         public void BlockPlayer()
         {
             if (PlayerHasTwoInARowOnRow())
@@ -72,30 +43,6 @@ namespace TicTacToe
             {
                 ScanRowsAndPlace(_gameState.PlayerPositions[0].Column); 
             }
-        }
-
-        private void ScanColumsAndPlace(int row)
-        {
-            for (int column = 0; column <= 2; column++)
-            {
-                PlaceIfEmpty(row, column, _gameState.ComputerSymbol);
-            }
-        }
-
-        private static bool PositionIsACornerCell(Position pos)
-        {
-            return ((pos.Column + pos.Row) % 2) == 0 && !pos.IsCenter;
-        }
-
-        public bool PlaceIfEmpty(int row, int column, string symbol)
-        {
-            var placed = false;
-            if (_gameState.Board[row, column] == " ")
-            {
-                _gameState.Board[row, column] = symbol;
-                placed = true;
-            }
-            return placed;
         }
 
         public void PlacePieceInOppositeCorner()
@@ -117,6 +64,27 @@ namespace TicTacToe
             }
         }
 
+        private bool PlaceAtOppositeCorner(Position pos)
+        {
+            var oppositeCorner = _gameQueries.FindOppositeCorner(pos);
+            return PlaceIfEmpty(oppositeCorner.Row, oppositeCorner.Column, _gameState.ComputerSymbol);
+        }
+
+        private void FindAndPlaceInCentre(Position pos)
+        {
+            var otherPositions = _gameState.ComputerPositons.Where(x => (x.Column != pos.Column) || (x.Row != pos.Row)).ToList();
+            var otherNonCenterPosition = otherPositions.Single(x => !x.IsCenter);
+
+            if (otherNonCenterPosition.Row == pos.Row)
+            {
+                ScanColumsAndPlace(pos.Row);
+            }
+            else if (otherNonCenterPosition.Column == pos.Column)
+            {
+                ScanRowsAndPlace(pos.Column);
+            }
+        }
+
         public void PlacePlayer(string userInput)
         {
             int target = int.Parse(userInput);
@@ -124,6 +92,38 @@ namespace TicTacToe
             PlayerTarget = FindArrayPositionOfBoxNumberRef(target);
 
             _gameState.Board[PlayerTarget.Row, PlayerTarget.Column] = _gameState.PlayerSymbol;
+        }
+
+        private void ScanRowsAndPlace(int pos)
+        {
+            for (int row = 0; row <= 2; row++)
+            {
+                PlaceIfEmpty(row, pos, _gameState.ComputerSymbol);
+            }
+        }
+
+        private void ScanColumsAndPlace(int row)
+        {
+            for (int column = 0; column <= 2; column++)
+            {
+                PlaceIfEmpty(row, column, _gameState.ComputerSymbol);
+            }
+        }
+
+        private static bool PositionIsACornerCell(Position pos)
+        {
+            return ((pos.Column + pos.Row) % 2) == 0 && !pos.IsCenter;
+        }
+
+        private bool PlaceIfEmpty(int row, int column, string symbol)
+        {
+            var placed = false;
+            if (_gameState.Board[row, column] == " ")
+            {
+                _gameState.Board[row, column] = symbol;
+                placed = true;
+            }
+            return placed;
         }
 
         private bool PlayerHasTwoInARowOnColumn()
