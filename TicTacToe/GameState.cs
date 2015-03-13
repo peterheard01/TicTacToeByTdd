@@ -21,7 +21,7 @@ namespace TicTacToe
 
         public GameState()
         {
-            Board = new string[3, 3] { { "_", "_", "_" }, { "_", "_", "_" }, { "_", "_", "_" } };
+            Board = new string[3, 3] { { " ", " ", " " }, { " ", " ", " " }, { " ", " ", " " } };
         }
 
     }

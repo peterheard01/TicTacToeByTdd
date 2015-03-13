@@ -56,7 +56,7 @@ namespace TicTacToe
         {
             if (userInput == "y")
             {
-                GameState.Board = new string[3,3] { {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "} };
+                GameState = new GameState();
                 GameState.GameStatus = GameStatus.GameStarted;
             }
             else if (userInput == "n")
