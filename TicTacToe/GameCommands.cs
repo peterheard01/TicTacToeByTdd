@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace TicTacToe
 {
@@ -29,7 +25,7 @@ namespace TicTacToe
                 {
                     if (!PlaceAtDiagonalCorner(pos))
                     {
-                        FindAndPlaceInBetween(pos);
+                        MakeWinningLineByFillingGap(pos);
                     }
                 }
             }
@@ -37,11 +33,11 @@ namespace TicTacToe
 
         public void BlockPlayer()
         {
-            if (PlayerHasTwoInARowOnRow())
+            if (_gameQueries.PlayerHasTwoInARowOnRow())
             {
                 ScanColumsAndPlace(_gameState.PlayerPositions[0].Row);
             }
-            else if (PlayerHasTwoInARowOnColumn())
+            else if (_gameQueries.PlayerHasTwoInARowOnColumn())
             {
                 ScanRowsAndPlace(_gameState.PlayerPositions[0].Column);
             }
@@ -82,31 +78,26 @@ namespace TicTacToe
                     if (_gameState.Board[cellToTheRight.Row, cellToTheRight.Column] == " ")
                     {
                         //place piece at opposite corner
-                        //var newPos = new Position()
+                        //var newPos = _cycleShift.ShiftRight(computerPosition);
+                        //PlaceIfEmpty(newPos);
                     }
                     else if (_gameState.Board[cellDownwards.Row, cellDownwards.Column] == " ")
                     {
                         //place piece at opposite corner
                         var diag = _gameQueries.CalculateOppositeDiagonalCorner(computerPosition);
                     }
-                    
-
-                    //if (PlaceIfEmpty(rh))
-                    //{
-                    //}
+                   
                 }
             }
 
         }
-
-       
 
         public void PlacePieceInOppositeCorner()
         {
             if (IsCornerCell(PlayerTarget))
             {
                 var diag = _gameQueries.CalculateOppositeDiagonalCorner(PlayerTarget);
-                PlaceIfEmpty(diag.Row, diag.Column, _gameState.ComputerSymbol);
+                PlaceIfEmpty(diag, _gameState.ComputerSymbol);
             }
             else
             {
@@ -126,17 +117,16 @@ namespace TicTacToe
                         break;
                 }
             }
-
-           
+ 
         }
 
         private bool PlaceAtDiagonalCorner(Position pos)
         {
             var oppositeCorner = _gameQueries.CalculateOppositeDiagonalCorner(pos);
-            return PlaceIfEmpty(oppositeCorner.Row, oppositeCorner.Column, _gameState.ComputerSymbol);
+            return PlaceIfEmpty(oppositeCorner, _gameState.ComputerSymbol);
         }
 
-        private void FindAndPlaceInBetween(Position pos)
+        private void MakeWinningLineByFillingGap(Position pos)
         {
             var otherPositions = _gameState.ComputerPositons.Where(x => (x.Column != pos.Column) || (x.Row != pos.Row)).ToList();
             var otherNonCenterPosition = otherPositions.Single(x => !x.IsCenter);
@@ -155,16 +145,16 @@ namespace TicTacToe
         {
             int target = int.Parse(userInput);
 
-            PlayerTarget = FindArrayPositionOfBoxNumberRef(target);
+            PlayerTarget = _gameQueries.FindArrayPositionOfBoxNumberRef(target);
 
             _gameState.Board[PlayerTarget.Row, PlayerTarget.Column] = _gameState.PlayerSymbol;
         }
 
-        private void ScanRowsAndPlace(int pos)
+        private void ScanRowsAndPlace(int column)
         {
             for (int row = 0; row <= 2; row++)
             {
-                PlaceIfEmpty(row, pos, _gameState.ComputerSymbol);
+                PlaceIfEmpty(new Position(row, column),  _gameState.ComputerSymbol);
             }
         }
 
@@ -172,7 +162,7 @@ namespace TicTacToe
         {
             for (int column = 0; column <= 2; column++)
             {
-                PlaceIfEmpty(row, column, _gameState.ComputerSymbol);
+                PlaceIfEmpty(new Position(row, column), _gameState.ComputerSymbol);
             }
         }
 
@@ -181,43 +171,17 @@ namespace TicTacToe
             return ((pos.Column + pos.Row) % 2) == 0 && !pos.IsCenter;
         }
 
-        private bool PlaceIfEmpty(int row, int column, string symbol)
+        private bool PlaceIfEmpty(Position pos, string symbol)
         {
             var placed = false;
-            if (_gameState.Board[row, column] == " ")
+            if (_gameState.Board[pos.Row, pos.Column] == " ")
             {
-                _gameState.Board[row, column] = symbol;
+                _gameState.Board[pos.Row, pos.Column] = symbol;
                 placed = true;
             }
             return placed;
         }
 
-        private bool PlayerHasTwoInARowOnColumn()
-        {
-            return _gameState.PlayerPositions[0].Column == _gameState.PlayerPositions[1].Column &&
-                   (Math.Abs(_gameState.PlayerPositions[0].Row - _gameState.PlayerPositions[1].Row) == 1);
-        }
 
-        private bool PlayerHasTwoInARowOnRow()
-        {
-            return _gameState.PlayerPositions[0].Row == _gameState.PlayerPositions[1].Row &&
-                   (Math.Abs(_gameState.PlayerPositions[0].Column - _gameState.PlayerPositions[1].Column) == 1);
-        }
-
-        private static Position FindArrayPositionOfBoxNumberRef(int boxNumber)
-        {
-            Dictionary<int, Position> map = new Dictionary<int, Position>();
-            map.Add(1, new Position(0, 0));
-            map.Add(2, new Position(0, 1));
-            map.Add(3, new Position(0, 2));
-            map.Add(4, new Position(1, 0));
-            map.Add(5, new Position(1, 1));
-            map.Add(6, new Position(1, 2));
-            map.Add(7, new Position(2, 0));
-            map.Add(8, new Position(2, 1));
-            map.Add(9, new Position(2, 2));
-            var place = map.First(x => x.Key == boxNumber).Value;
-            return place;
-        }
     }
 }

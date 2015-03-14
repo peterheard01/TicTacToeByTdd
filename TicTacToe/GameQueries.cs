@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TicTacToe
 {
@@ -16,6 +18,34 @@ namespace TicTacToe
         public Position CalculateOppositeDiagonalCorner(Position pos)
         {
             return new Position(_cycleShift.ShiftTwo(pos.Row), _cycleShift.ShiftTwo(pos.Column));
+        }
+
+        public bool PlayerHasTwoInARowOnColumn()
+        {
+            return _gameState.PlayerPositions[0].Column == _gameState.PlayerPositions[1].Column &&
+                   (Math.Abs(_gameState.PlayerPositions[0].Row - _gameState.PlayerPositions[1].Row) == 1);
+        }
+
+        public bool PlayerHasTwoInARowOnRow()
+        {
+            return _gameState.PlayerPositions[0].Row == _gameState.PlayerPositions[1].Row &&
+                   (Math.Abs(_gameState.PlayerPositions[0].Column - _gameState.PlayerPositions[1].Column) == 1);
+        }
+
+        public Position FindArrayPositionOfBoxNumberRef(int boxNumber)
+        {
+            Dictionary<int, Position> map = new Dictionary<int, Position>();
+            map.Add(1, new Position(0, 0));
+            map.Add(2, new Position(0, 1));
+            map.Add(3, new Position(0, 2));
+            map.Add(4, new Position(1, 0));
+            map.Add(5, new Position(1, 1));
+            map.Add(6, new Position(1, 2));
+            map.Add(7, new Position(2, 0));
+            map.Add(8, new Position(2, 1));
+            map.Add(9, new Position(2, 2));
+            var place = map.First(x => x.Key == boxNumber).Value;
+            return place;
         }
 
         
