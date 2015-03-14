@@ -21,7 +21,7 @@ namespace TicTacToe
         {
             foreach (var pos in _gameState.ComputerPositons)
             {
-                if (IsCornerCell(pos))
+                if (_gameQueries.IsCornerCell(pos))
                 {
                     if (!PlaceAtDiagonalCorner(pos))
                     {
@@ -41,35 +41,19 @@ namespace TicTacToe
             {
                 ScanRowsAndPlace(_gameState.PlayerPositions[0].Column);
             }
-            if (ComputerHasTwoDiagonally())
+            if (_gameQueries.ComputerHasTwoDiagonally())
             {
                 CreateTriangle();
             }
         }
 
-        private bool ComputerHasTwoDiagonally()
-        {
-            var hasCorner = false;
-            var hasCenter = false;
-            foreach (var computerPosition in _gameState.ComputerPositons)
-            {
-                if (computerPosition.IsCenter)
-                {
-                    hasCenter = true;
-                }
-                if (IsCornerCell(computerPosition))
-                {
-                    hasCorner = true;
-                }
-            }
-            return hasCorner && hasCenter;
-        }
+        
 
         private void CreateTriangle()
         {
             foreach (var computerPosition in _gameState.ComputerPositons)
             {
-                if (IsCornerCell(computerPosition))
+                if (_gameQueries.IsCornerCell(computerPosition))
                 {
                     //check rh cel
                     var cellToTheRight = new Position(computerPosition.Row, _cycleShift.ShiftOne(computerPosition.Column) + computerPosition.Column);
@@ -94,7 +78,7 @@ namespace TicTacToe
 
         public void PlacePieceInOppositeCorner()
         {
-            if (IsCornerCell(PlayerTarget))
+            if (_gameQueries.IsCornerCell(PlayerTarget))
             {
                 var diag = _gameQueries.CalculateOppositeDiagonalCorner(PlayerTarget);
                 PlaceIfEmpty(diag, _gameState.ComputerSymbol);
@@ -166,10 +150,7 @@ namespace TicTacToe
             }
         }
 
-        private static bool IsCornerCell(Position pos)
-        {
-            return ((pos.Column + pos.Row) % 2) == 0 && !pos.IsCenter;
-        }
+
 
         private bool PlaceIfEmpty(Position pos, string symbol)
         {

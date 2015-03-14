@@ -20,6 +20,29 @@ namespace TicTacToe
             return new Position(_cycleShift.ShiftTwo(pos.Row), _cycleShift.ShiftTwo(pos.Column));
         }
 
+        public bool ComputerHasTwoDiagonally()
+        {
+            var hasCorner = false;
+            var hasCenter = false;
+            foreach (var computerPosition in _gameState.ComputerPositons)
+            {
+                if (computerPosition.IsCenter)
+                {
+                    hasCenter = true;
+                }
+                if (IsCornerCell(computerPosition))
+                {
+                    hasCorner = true;
+                }
+            }
+            return hasCorner && hasCenter;
+        }
+
+        public bool IsCornerCell(Position pos)
+        {
+            return ((pos.Column + pos.Row) % 2) == 0 && !pos.IsCenter;
+        }
+
         public bool PlayerHasTwoInARowOnColumn()
         {
             return _gameState.PlayerPositions[0].Column == _gameState.PlayerPositions[1].Column &&
