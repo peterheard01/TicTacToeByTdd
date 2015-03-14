@@ -1,27 +1,12 @@
 ﻿using NUnit.Framework;
 
-namespace TicTacToe.Test
+namespace TicTacToe.Test.GameLoopTests
 {
     [TestFixture]
-    public class GameLoopTests
+    public class GameLoopTestsCompFirstPlayerMarksEdge : GameLoopTestsBase
     {
-        private Game _game;
-
-        [SetUp]
-        public void Setup()
-        {
-            GameStarted();
-        }
-
-        private void GameStarted()
-        {
-            _game = new Game();
-            _game.GameState.PlayerSymbol = "x";
-            _game.GameState.ComputerSymbol = "o";
-            _game.GameState.GameStatus = GameStatus.GameStarted;
-        }
-
-
+        
+        //original flow
         [TestCase(" | | " +
                   " |o| " +
                   " | | ",
@@ -36,6 +21,7 @@ namespace TicTacToe.Test
                     "x|x|o" +
                     " |o| " +
                     " | |o")]
+        //diagonal win
         [TestCase("x|x|o" +
                   " |o| " +
                   " | |o",
@@ -53,6 +39,7 @@ namespace TicTacToe.Test
                     " | | " +
                     "x|o| " +
                     " | |o")]
+
         [TestCase(" | | " +
                   "x|o| " +
                   " | |o",
@@ -60,6 +47,8 @@ namespace TicTacToe.Test
                     "x| | " +
                     "x|o| " +
                     "o| |o")]
+
+        //horizontal win 
         [TestCase("x| | " +
                   "x|o| " +
                   "o| |o",
@@ -67,14 +56,15 @@ namespace TicTacToe.Test
                     "x| |x" +
                     "x|o| " +
                     "o|o|o")]
+        //vertical win
         [TestCase("x|x|o" +
-                  " |o| " +
-                  " | |o",
+                    " |o| " +
+                    " | |o",
                     "7",
                     "x|x|o" +
                     " |o|o" +
                     "x| |o")]
-        public void Computer_Went_First(string start, string userInput, string end)
+        public void Computer_Goes_First_Player_Marks_Edge(string start, string userInput, string end)
         {
             _game.GameState.Board = Helper.CreateBoardFromTestData(start);
             _game.ReadUserInput(userInput);

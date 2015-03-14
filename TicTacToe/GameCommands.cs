@@ -10,6 +10,7 @@ namespace TicTacToe
     {
         private GameState _gameState;
         private GameQueries _gameQueries;
+        private CellShifter _cellShifter;
 
         public Position PlayerTarget { get; set; }
 
@@ -17,6 +18,7 @@ namespace TicTacToe
         {
             _gameState = gameStateArg;
             _gameQueries = new GameQueries(_gameState);
+            _cellShifter = new CellShifter();
         }
 
         public void MakeWinningLine()
@@ -35,33 +37,97 @@ namespace TicTacToe
 
         public void BlockPlayer()
         {
+            //if(ComputerHasTwoDiagonally())
+            //{
+            //    CreateTriangle();
+            //}
             if (PlayerHasTwoInARowOnRow())
             {
                 ScanColumsAndPlace(_gameState.PlayerPositions[0].Row);
             }
             else if (PlayerHasTwoInARowOnColumn())
             {
-                ScanRowsAndPlace(_gameState.PlayerPositions[0].Column); 
+                ScanRowsAndPlace(_gameState.PlayerPositions[0].Column);
             }
         }
 
+        private bool ComputerHasTwoDiagonally()
+        {
+            var hasCorner = false;
+            var hasCenter = false;
+            foreach (var computerPosition in _gameState.ComputerPositons)
+            {
+                if (computerPosition.IsCenter)
+                {
+                    hasCenter = true;
+                }
+                if (IsCornerCell(computerPosition))
+                {
+                    hasCorner = true;
+                }
+            }
+            return hasCorner && hasCenter;
+        }
+
+        private void CreateTriangle()
+        {
+            foreach (var computerPosition in _gameState.ComputerPositons)
+            {
+                if (IsCornerCell(computerPosition))
+                {
+                    //check rh cel
+                    var cellToTheRight = new Position(computerPosition.Row, _cellShifter.ShiftOne(computerPosition.Column) + computerPosition.Column);
+                    var cellDownwards = new Position(_cellShifter.ShiftOne(computerPosition.Row) + computerPosition.Row, computerPosition.Column);
+
+                    if (_gameState.Board[cellToTheRight.Row, cellToTheRight.Column] == " ")
+                    {
+                        //place piece at opposite corner
+                        //var newPos = new Position()
+                    }
+                    else if (_gameState.Board[cellDownwards.Row, cellDownwards.Column] == " ")
+                    {
+                        //place piece at opposite corner
+                        var diag = _gameQueries.CalculateOppositeDiagonalCorner(computerPosition);
+                    }
+                    
+
+                    //if (PlaceIfEmpty(rh))
+                    //{
+                    //}
+                }
+            }
+
+        }
+
+       
+
         public void PlacePieceInOppositeCorner()
         {
-            switch (PlayerTarget.Row)
+            if (IsCornerCell(PlayerTarget))
             {
-                case 0:
-                    _gameState.Board[PlayerTarget.Row + 2, PlayerTarget.Column + 1] = _gameState.ComputerSymbol;
-                    break;
-                case 2:
-                    _gameState.Board[PlayerTarget.Row - 2, PlayerTarget.Column + 1] = _gameState.ComputerSymbol;
-                    break;
-                case 1:
-                    if (PlayerTarget.Column == 0)
-                        _gameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column + 2] = _gameState.ComputerSymbol;
-                    else if (PlayerTarget.Column == 2)
-                        _gameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column - 2] = _gameState.ComputerSymbol;
-                    break;
+                var diag = _gameQueries.CalculateOppositeDiagonalCorner(PlayerTarget);
+                PlaceIfEmpty(diag.Row, diag.Column, _gameState.ComputerSymbol);
             }
+            else
+            {
+                switch (PlayerTarget.Row)
+                {
+                    case 0:
+                        _gameState.Board[PlayerTarget.Row + 2, PlayerTarget.Column + 1] = _gameState.ComputerSymbol;
+                        break;
+                    case 2:
+                        _gameState.Board[PlayerTarget.Row - 2, PlayerTarget.Column + 1] = _gameState.ComputerSymbol;
+                        break;
+                    case 1:
+                        if (PlayerTarget.Column == 0)
+                            _gameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column + 2] = _gameState.ComputerSymbol;
+                        else if (PlayerTarget.Column == 2)
+                            _gameState.Board[PlayerTarget.Row + 1, PlayerTarget.Column - 2] = _gameState.ComputerSymbol;
+                        break;
+                }
+            }
+
+           
         }
 
         private bool PlaceAtDiagonalCorner(Position pos)

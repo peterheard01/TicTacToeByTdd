@@ -5,27 +5,20 @@ namespace TicTacToe
     public class GameQueries
     {
         private GameState _gameState;
+        private CellShifter _cellShifter;
 
         public GameQueries(GameState gameStateArg)
         {
             _gameState = gameStateArg;
+            _cellShifter = new CellShifter();
         }
 
-        #region queries
         public Position CalculateOppositeDiagonalCorner(Position pos)
         {
-            return new Position(Shift(pos.Row), Shift(pos.Column));
+            return new Position(_cellShifter.ShiftTwo(pos.Row), _cellShifter.ShiftTwo(pos.Column));
         }
 
-        private int Shift(int pos)
-        {
-            int newPos = pos + 2;
-            if (newPos > 2)
-            {
-                newPos = 0;
-            }
-            return newPos;
-        }
+        
 
         public List<Position> FindPositions(string symBolToCheck)
         {
@@ -42,6 +35,6 @@ namespace TicTacToe
             }
             return retVals;
         }
-        #endregion
+
     }
 }
