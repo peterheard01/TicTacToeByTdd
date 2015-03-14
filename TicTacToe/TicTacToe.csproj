@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CellShifter.cs" />
+    <Compile Include="CycleShift.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameCommands.cs" />
     <Compile Include="GameLoop.cs" />

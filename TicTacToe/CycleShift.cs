@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    public class CellShifter
+    public class CycleShift
     {
         public int ShiftOne(int pos)
         {

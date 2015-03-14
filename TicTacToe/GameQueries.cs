@@ -5,17 +5,17 @@ namespace TicTacToe
     public class GameQueries
     {
         private GameState _gameState;
-        private CellShifter _cellShifter;
+        private CycleShift _cycleShift;
 
         public GameQueries(GameState gameStateArg)
         {
             _gameState = gameStateArg;
-            _cellShifter = new CellShifter();
+            _cycleShift = new CycleShift();
         }
 
         public Position CalculateOppositeDiagonalCorner(Position pos)
         {
-            return new Position(_cellShifter.ShiftTwo(pos.Row), _cellShifter.ShiftTwo(pos.Column));
+            return new Position(_cycleShift.ShiftTwo(pos.Row), _cycleShift.ShiftTwo(pos.Column));
         }
 
         

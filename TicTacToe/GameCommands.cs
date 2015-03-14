@@ -10,7 +10,7 @@ namespace TicTacToe
     {
         private GameState _gameState;
         private GameQueries _gameQueries;
-        private CellShifter _cellShifter;
+        private CycleShift _cycleShift;
 
         public Position PlayerTarget { get; set; }
 
@@ -18,7 +18,7 @@ namespace TicTacToe
         {
             _gameState = gameStateArg;
             _gameQueries = new GameQueries(_gameState);
-            _cellShifter = new CellShifter();
+            _cycleShift = new CycleShift();
         }
 
         public void MakeWinningLine()
@@ -37,10 +37,6 @@ namespace TicTacToe
 
         public void BlockPlayer()
         {
-            //if(ComputerHasTwoDiagonally())
-            //{
-            //    CreateTriangle();
-            //}
             if (PlayerHasTwoInARowOnRow())
             {
                 ScanColumsAndPlace(_gameState.PlayerPositions[0].Row);
@@ -48,6 +44,10 @@ namespace TicTacToe
             else if (PlayerHasTwoInARowOnColumn())
             {
                 ScanRowsAndPlace(_gameState.PlayerPositions[0].Column);
+            }
+            if (ComputerHasTwoDiagonally())
+            {
+                CreateTriangle();
             }
         }
 
@@ -76,8 +76,8 @@ namespace TicTacToe
                 if (IsCornerCell(computerPosition))
                 {
                     //check rh cel
-                    var cellToTheRight = new Position(computerPosition.Row, _cellShifter.ShiftOne(computerPosition.Column) + computerPosition.Column);
-                    var cellDownwards = new Position(_cellShifter.ShiftOne(computerPosition.Row) + computerPosition.Row, computerPosition.Column);
+                    var cellToTheRight = new Position(computerPosition.Row, _cycleShift.ShiftOne(computerPosition.Column) + computerPosition.Column);
+                    var cellDownwards = new Position(_cycleShift.ShiftOne(computerPosition.Row) + computerPosition.Row, computerPosition.Column);
 
                     if (_gameState.Board[cellToTheRight.Row, cellToTheRight.Column] == " ")
                     {
