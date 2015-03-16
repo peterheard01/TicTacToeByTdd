@@ -3,6 +3,10 @@
 	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=0978CC86A4E944E8B5CC534F52396787/GroupingIndex/@EntryValue">4</s:Int64>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=0978CC86A4E944E8B5CC534F52396787/Name/@EntryValue">On_Game_Start_Game_Shows_Empty_Board_And_Prompts_User_To_Choose_Symbol</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=0978CC86A4E944E8B5CC534F52396787/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;e Id="TicTacToe.Test.GameStartedTests" Project="D92CBC8F-A815-42BB-BBC7-4EB14A55C78D" Provider="nUnit" /&gt;&lt;e Id="TicTacToe.Test.GameStartedTests.Player_Chooses_Center_Computer_Chooses_First_Available_Corner" Project="D92CBC8F-A815-42BB-BBC7-4EB14A55C78D" Provider="nUnit" /&gt;&lt;/Session&gt;</s:String>
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5524533808E7479BB4BAEBBA2BF5A94F/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5524533808E7479BB4BAEBBA2BF5A94F/GroupingIndex/@EntryValue">4</s:Int64>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5524533808E7479BB4BAEBBA2BF5A94F/Name/@EntryValue">Computer_Goes_First_Player_Marks_Corner(" | |  |o|  | | ","3"," | |x |o| o| | ")</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=5524533808E7479BB4BAEBBA2BF5A94F/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;/Session&gt;</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=6C801ECED52D401C94D836BB873A6638/@KeyIndexDefined">True</s:Boolean>
 	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=6C801ECED52D401C94D836BB873A6638/GroupingIndex/@EntryValue">4</s:Int64>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=6C801ECED52D401C94D836BB873A6638/Name/@EntryValue">Computer_Goes_First_Tests(System.String[],System.String[])</s:String>

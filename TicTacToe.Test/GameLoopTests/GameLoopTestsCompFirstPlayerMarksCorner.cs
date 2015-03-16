@@ -4,6 +4,15 @@ namespace TicTacToe.Test.GameLoopTests
 {
     public class GameLoopTestsCompFirstPlayerMarksCorner : GameLoopTestsBase
     {
+
+        [TestCase("x| | " +
+                   " |o| " +
+                   " | |o",
+                   "6",
+                   "x| | " +
+                   " |o|x" +
+                   "o| |o")]
+
         [TestCase(" | | " +
                   " |o| " +
                   " | | ",
@@ -11,14 +20,16 @@ namespace TicTacToe.Test.GameLoopTests
                     " | |x" +
                     " |o| " +
                     "o| | ")]
-        [TestCase(  " | |x" +
+        [TestCase(" | |x" +
                     " |o| " +
                     "o| | ",
-                    "2",
+                    "8",
                     "o| |x" +
                     " |o| " +
                     "o|x| ")]
 
+
+        //triangulation
         [TestCase(" | | " +
                  " |o| " +
                  " | | ",

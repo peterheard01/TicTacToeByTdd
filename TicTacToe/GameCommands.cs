@@ -41,7 +41,7 @@ namespace TicTacToe
             {
                 ScanRowsAndPlace(_gameState.PlayerPositions[0].Column);
             }
-            if (_gameQueries.ComputerHasTwoDiagonally())
+            else if (_gameQueries.ComputerHasTwoDiagonally())
             {
                 CreateTriangle();
             }
@@ -61,14 +61,13 @@ namespace TicTacToe
 
                     if (_gameState.Board[cellToTheRight.Row, cellToTheRight.Column] == " ")
                     {
-                        //place piece at opposite corner
-                        //var newPos = _cycleShift.ShiftRight(computerPosition);
-                        //PlaceIfEmpty(newPos);
+                        var cornerRightWards = new Position(computerPosition.Row, _cycleShift.ShiftTwo(computerPosition.Column));
+                        PlaceIfEmpty(cornerRightWards, _gameState.ComputerSymbol);
                     }
                     else if (_gameState.Board[cellDownwards.Row, cellDownwards.Column] == " ")
                     {
-                        //place piece at opposite corner
-                        var diag = _gameQueries.CalculateOppositeDiagonalCorner(computerPosition);
+                        var cornerDownwards = new Position(_cycleShift.ShiftTwo(computerPosition.Row), computerPosition.Column);
+                        PlaceIfEmpty(cornerDownwards, _gameState.ComputerSymbol);
                     }
                    
                 }
