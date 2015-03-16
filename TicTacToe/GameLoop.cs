@@ -29,7 +29,7 @@ namespace TicTacToe
             }
             else if (_gameState.PlayerPositions.Count == 2)
             {
-                _gameCommands.BlockPlayer();
+                _gameCommands.BlockOrTriangle();
             }
             else if (_gameState.PlayerPositions.Count == 1)
             {

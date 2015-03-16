@@ -31,7 +31,7 @@ namespace TicTacToe
             }
         }
 
-        public void BlockPlayer()
+        public void BlockOrTriangle()
         {
             if (_gameQueries.PlayerHasTwoInARowOnRow())
             {
