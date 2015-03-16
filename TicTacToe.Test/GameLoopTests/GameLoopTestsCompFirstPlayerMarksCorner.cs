@@ -35,7 +35,7 @@ namespace TicTacToe.Test.GameLoopTests
 
         
         //triangulation
-        [TestCase( " | | " +
+        [TestCase(" | | " +
                    " |o| " +
                    " | | ",
                    "1",
@@ -49,20 +49,20 @@ namespace TicTacToe.Test.GameLoopTests
                    "x| | " +
                    " |o|x" +
                    "o| |o")]
-            [TestCase(  "x| | " +
-                        " |o| " +
-                        " | |o",
-                        "3",
-                        "x|o|x" +
-                        " |o| " +
-                        " | |o")]//tie condition
-            [TestCase(  "x|o|x" +
-                        " |o| " +
-                        " |o|o",
-                        "8",
-                        "x|o|x" +
-                        " |o| " +
-                        "o|x|o")]//tie condition 2
+        [TestCase("x| | " +
+                    " |o| " +
+                    " | |o",
+                    "3",
+                    "x|o|x" +
+                    " |o| " +
+                    " | |o")]//tie condition
+            //[TestCase(  "x|o|x" +
+            //            " |o| " +
+            //            " | |o",
+            //            "8",
+            //            "x|o|x" +
+            //            " |o| " +
+            //            "o|x|o")]//tie condition
         [TestCase("x| | " +
                    " |o|x" +
                    "o| |o",
