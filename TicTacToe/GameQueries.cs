@@ -45,16 +45,12 @@ namespace TicTacToe
 
         public bool PlayerHasTwoInARowOnColumn()
         {
-            return _gameState.PlayerPositions[0].Column == _gameState.PlayerPositions[1].Column &&
-                   (Math.Abs(_gameState.PlayerPositions[0].Row - _gameState.PlayerPositions[1].Row) == 1);
+            return _gameState.PlayerPositions[0].Column == _gameState.PlayerPositions[1].Column;
         }
 
         public bool PlayerHasTwoInARowOnRow()
         {
             return _gameState.PlayerPositions[0].Row == _gameState.PlayerPositions[1].Row;
-
-            //return _gameState.PlayerPositions[0].Row == _gameState.PlayerPositions[1].Row &&
-            //       (Math.Abs(_gameState.PlayerPositions[0].Column - _gameState.PlayerPositions[1].Column) == 1);
         }
 
         public Position FindArrayPositionOfBoxNumberRef(int boxNumber)
@@ -73,8 +69,6 @@ namespace TicTacToe
             return place;
         }
 
-        
-
         public List<Position> FindPositions(string symBolToCheck)
         {
             var retVals = new List<Position>();
@@ -91,5 +85,27 @@ namespace TicTacToe
             return retVals;
         }
 
+
+
+
+        internal List<Line> Lines()
+        {
+            var retVal = new List<Line>();
+            for (int row = 0; row <= 2; row++)
+            {
+                var line = new Line();
+                line.Orientation = Orientation.Horizontal;
+
+                for (int column = 0; column <= 2; column++)
+                {
+                    line.Positions.Add(new Position(row,column));
+                }
+                retVal.Add(line);
+
+            }
+
+            return retVal;
+
+        }
     }
 }

@@ -19,13 +19,76 @@ namespace TicTacToe
 
         public void MakeWinningLine()
         {
+
+            var blah = false;
             foreach (var pos in _gameState.ComputerPositons)
             {
                 if (_gameQueries.IsCornerCell(pos))
                 {
                     if (!PlaceAtDiagonalCorner(pos))
                     {
-                        MakeWinningLineByFillingGap(pos);
+                        //if (!
+                        blah = MakeWinningLineByFillingGap(pos);
+
+                        //blah = true;
+                        // {
+                        //
+                        //}
+                    }
+                }
+            }
+
+            if (blah == false)
+            {
+                AttemptWinningLine();
+            }
+            
+        }
+
+        public void AttemptWinningLine()
+        {
+            //var hasEmptySpace = false;
+            foreach (Line line in _gameQueries.Lines())
+            {
+                var emptyPosCount = 0;
+                foreach (var pos in line.Positions)
+                {
+                    if (_gameState.Board[pos.Row, pos.Column] == " ")
+                    {
+                        emptyPosCount++;
+                    }
+
+                    if (emptyPosCount == 2)
+                    {
+                        ScanColumsAndPlace(pos.Row);
+                        break;
+                    }
+                    //if (emptyPosCount == 1)
+                    //{
+                    //    ScanColumsAndPlace(pos.Row);
+                    //    break;
+                    //}
+                }
+            }
+        }
+
+        public void AttemptWinningLine2()
+        {
+            //var hasEmptySpace = false;
+            foreach (Line line in _gameQueries.Lines())
+            {
+                var emptyPosCount = 0;
+                foreach (var pos in line.Positions)
+                {
+                    if (_gameState.Board[pos.Row, pos.Column] == " ")
+                    {
+                        emptyPosCount++;
+                    }
+
+                    if (emptyPosCount == 1)
+                    {
+                        ScanColumsAndPlace(pos.Row);
+                        break;
                     }
                 }
             }
@@ -109,19 +172,21 @@ namespace TicTacToe
             return PlaceIfEmpty(oppositeCorner, _gameState.ComputerSymbol);
         }
 
-        private void MakeWinningLineByFillingGap(Position pos)
+        private bool MakeWinningLineByFillingGap(Position pos)
         {
+            bool winningLineMade = false;
             var otherPositions = _gameState.ComputerPositons.Where(x => (x.Column != pos.Column) || (x.Row != pos.Row)).ToList();
             var otherNonCenterPosition = otherPositions.Single(x => !x.IsCenter);
 
             if (otherNonCenterPosition.Row == pos.Row)
             {
-                ScanColumsAndPlace(pos.Row);
+                winningLineMade = ScanColumsAndPlace(pos.Row);
             }
             else if (otherNonCenterPosition.Column == pos.Column)
             {
-                ScanRowsAndPlace(pos.Column);
+                winningLineMade = ScanRowsAndPlace(pos.Column);
             }
+            return winningLineMade;
         }
 
         public void PlacePlayer(string userInput)
@@ -133,20 +198,31 @@ namespace TicTacToe
             _gameState.Board[PlayerTarget.Row, PlayerTarget.Column] = _gameState.PlayerSymbol;
         }
 
-        private void ScanRowsAndPlace(int column)
+        private bool ScanRowsAndPlace(int column)
         {
+            var placed = false;
             for (int row = 0; row <= 2; row++)
             {
-                PlaceIfEmpty(new Position(row, column),  _gameState.ComputerSymbol);
+                if (PlaceIfEmpty(new Position(row, column), _gameState.ComputerSymbol))
+                {
+                    placed = true;
+                }
             }
+            return placed;
         }
 
-        private void ScanColumsAndPlace(int row)
+        private bool ScanColumsAndPlace(int row)
         {
+            bool placed = false;
             for (int column = 0; column <= 2; column++)
             {
-                PlaceIfEmpty(new Position(row, column), _gameState.ComputerSymbol);
+                if (PlaceIfEmpty(new Position(row, column), _gameState.ComputerSymbol))
+                {
+                    placed = true;
+                    break;
+                }
             }
+            return placed;
         }
 
 

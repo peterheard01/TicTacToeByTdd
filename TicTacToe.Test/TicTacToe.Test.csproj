@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="GameLoopTests\GameLoopTestsBase.cs" />
     <Compile Include="GameLoopTests\GameLoopTestsCompFirstPlayerMarksCorner.cs" />
+    <Compile Include="GameLoopTests\GameLoopTieConditions.cs" />
     <Compile Include="GameSetupTests.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

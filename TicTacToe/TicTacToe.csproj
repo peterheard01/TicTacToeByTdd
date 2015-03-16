@@ -46,6 +46,7 @@
     <Compile Include="GameQueries.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GameStatus.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

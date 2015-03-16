@@ -34,7 +34,7 @@ namespace TicTacToe.Test.GameLoopTests
                    "o|x|x")]//player takes diagonal so take triangle
 
         
-        ////triangulation
+        //////triangulation
         [TestCase(" | | " +
                    " |o| " +
                    " | | ",
@@ -50,13 +50,6 @@ namespace TicTacToe.Test.GameLoopTests
                    " |o|x" +
                    "o| |o")]
         [TestCase("x| | " +
-                    " |o| " +
-                    " | |o",
-                    "3",
-                    "x|o|x" +
-                    " |o| " +
-                    " | |o")]//tie condition
-        [TestCase("x| | " +
                    " |o|x" +
                    "o| |o",
                    "3",
@@ -71,6 +64,22 @@ namespace TicTacToe.Test.GameLoopTests
                    "x| |o" +
                    " |o|x" +
                    "o|x|o")]//player takes triangle so take diagonal
+
+
+        [TestCase("x| | " +
+                  " |o| " +
+                  " | |o",
+                  "3",
+                  "x|o|x" +
+                  " |o| " +
+                  " | |o")]//tie condition
+        [TestCase("x| | " +
+                  " |o| " +
+                  " | |o",
+                  "7",
+                  "x| | " +
+                  "o|o| " +
+                  "x| |o")]//tie condition
         public void Computer_Goes_First_Player_Marks_Corner(string start, string userInput, string end)
         {
             _game.GameState.Board = Helper.CreateBoardFromTestData(start);

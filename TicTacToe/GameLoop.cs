@@ -23,7 +23,11 @@ namespace TicTacToe
             _gameState.PlayerPositions = _gameQueries.FindPositions(_gameState.PlayerSymbol);
             _gameState.ComputerPositons = _gameQueries.FindPositions(_gameState.ComputerSymbol);
 
-            if (_gameState.PlayerPositions.Count == 3)
+            if (_gameState.PlayerPositions.Count >= 4)
+            {
+                _gameCommands.AttemptWinningLine2();
+            }
+            else if (_gameState.PlayerPositions.Count == 3)
             {
                 _gameCommands.MakeWinningLine();
             }
