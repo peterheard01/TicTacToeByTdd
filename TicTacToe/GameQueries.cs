@@ -51,8 +51,10 @@ namespace TicTacToe
 
         public bool PlayerHasTwoInARowOnRow()
         {
-            return _gameState.PlayerPositions[0].Row == _gameState.PlayerPositions[1].Row &&
-                   (Math.Abs(_gameState.PlayerPositions[0].Column - _gameState.PlayerPositions[1].Column) == 1);
+            return _gameState.PlayerPositions[0].Row == _gameState.PlayerPositions[1].Row;
+
+            //return _gameState.PlayerPositions[0].Row == _gameState.PlayerPositions[1].Row &&
+            //       (Math.Abs(_gameState.PlayerPositions[0].Column - _gameState.PlayerPositions[1].Column) == 1);
         }
 
         public Position FindArrayPositionOfBoxNumberRef(int boxNumber)
