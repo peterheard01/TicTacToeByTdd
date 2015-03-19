@@ -20,7 +20,7 @@ namespace TicTacToe
 
         public Line FindWinningLine()
         {
-            return GetLines().Where(CanWinOnLine).Single();
+            return GetLines().Where(CanWinOnLine).First();
         }
 
         public List<Line> GetLines()

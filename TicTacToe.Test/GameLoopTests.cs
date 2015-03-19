@@ -31,11 +31,46 @@ namespace TicTacToe.Test
             "o", "x", " ", 
             "o", " ", "x"
         })]//test win
+        [TestCase(new[]
+        {
+            " ", "x", "o", 
+            " ", "x", " ", 
+            " ", " ", "o"
+        }, "4", new[]
+        {
+            " ", "x", "o", 
+            "o", "x", " ", 
+            " ", "x", "o"
+        })]//test win
+        [TestCase(new[]
+        {
+            "x", "x", " ", 
+            "o", "o", " ", 
+            " ", " ", " "
+        }, "8", new[]
+        {
+            "x", "x", "x", 
+            "o", "o", " ", 
+            " ", "o", " "
+        })]//test win
+        [TestCase(new[]
+        {
+            "x", "x", "o", 
+            "o", " ", " ", 
+            "o", " ", "x"
+        }, "8", new[]
+        {
+            "x", "x", "o", 
+            "o", "x", " ", 
+            "o", "o", "x"
+        })]//test win
+
         public void Tests(string[] start, string userInput, string[] end)
         {
             _game.GameState.Board = Helper.Setup(start);
             _game.ReadUserInput(userInput);
-            CollectionAssert.AreEqual(_game.GameState.Board, Helper.Setup(end));
+            var endState = Helper.Setup(end);
+            CollectionAssert.AreEqual(_game.GameState.Board, endState);
         }
 
     }
