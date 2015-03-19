@@ -42,6 +42,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameCommands.cs" />
     <Compile Include="GameCondition.cs" />
+    <Compile Include="GameConstants.cs" />
     <Compile Include="GameLoop.cs" />
     <Compile Include="GameQueries.cs" />
     <Compile Include="GameState.cs" />
