@@ -5,19 +5,17 @@ namespace TicTacToe.Test
     public class GameLoopTestsBase
     {
         protected Game _game;
+        private string[] _endState;
 
-        [SetUp]
-        public void Setup()
-        {
-            GameStarted();
-        }
-
-        private void GameStarted()
+        private void GameStarted(string[] start,string userInput, string[] end)
         {
             _game = new Game();
             _game.GameState.PlayerSymbol = "o";
             _game.GameState.ComputerSymbol = "x";
             _game.GameState.GameStatus = GameStatus.GameStarted;
+            _game.GameState.Board = Helper.Setup(start);
+            _game.ReadUserInput(userInput);
+            _endState = Helper.Setup(end);
         }
 
         [TestCase(new[]
@@ -68,10 +66,65 @@ namespace TicTacToe.Test
 
         public void Test_Win(string[] start, string userInput, string[] end)
         {
-            _game.GameState.Board = Helper.Setup(start);
-            _game.ReadUserInput(userInput);
-            var endState = Helper.Setup(end);
-            CollectionAssert.AreEqual(_game.GameState.Board, endState);
+            GameStarted(start,userInput,end);
+            CollectionAssert.AreEqual(_game.GameState.Board, end);
+        }
+
+
+        [TestCase(new[]
+        {
+            "o", " ", " ", 
+            " ", "x", " ", 
+            " ", " ", " "
+        }, "2", new[]
+        {
+            "o", "o", "x", 
+            " ", "x", " ", 
+            " ", " ", " "
+        })]//test block [first horizontal]
+        [TestCase(new[]
+        {
+            "o", " ", " ", 
+            " ", "x", " ", 
+            " ", " ", " "
+        }, "4", new[]
+        {
+            "o", " ", " ", 
+            "o", "x", " ", 
+            "x", " ", " "
+        })]//test block [first vertical]
+        [TestCase(new[]
+        {
+            "o", "x", " ", 
+            " ", " ", " ", 
+            " ", " ", " "
+        }, "5", new[]
+        {
+            "o", "x", " ", 
+            " ", "o", " ", 
+            " ", " ", "x"
+        })]//test block [first diagonal]
+        public void Test_Block(string[] start, string userInput, string[] end)
+        {
+            GameStarted(start, userInput, end);
+            CollectionAssert.AreEqual(_game.GameState.Board, end);
+        }
+
+        [TestCase(new[]
+        {
+            "o", " ", " ", 
+            " ", "x", " ", 
+            " ", " ", "x"
+        }, "8", new[]
+        {
+            "o", " ", "x", 
+            " ", "x", " ", 
+            " ", "o", "x"
+        })]//test block [first diagonal]
+        public void Test_Fork(string[] start, string userInput, string[] end)
+        {
+            GameStarted(start, userInput, end);
+            CollectionAssert.AreEqual(_game.GameState.Board, end);
         }
 
     }

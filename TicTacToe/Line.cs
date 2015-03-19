@@ -8,6 +8,8 @@ namespace TicTacToe
 {
     public class Line
     {
+        public bool IsEdge { get; set; }
+
         public Line()
         {
             Positions = new List<Position>();   

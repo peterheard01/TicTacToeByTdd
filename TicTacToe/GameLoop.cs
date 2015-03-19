@@ -17,17 +17,32 @@ namespace TicTacToe
 
         public void RunGameLoop(string visualPosition)
         {
-            var single = _gameQueries.GetPositions().Single(x => x.VisualPosition == int.Parse(visualPosition));
-            single.Place(_gameState.PlayerSymbol);
+             _gameQueries.GetPositions().Single(x => x.VisualPosition == int.Parse(visualPosition)).Place(_gameState.PlayerSymbol);
 
-            GameCondition condition = _gameQueries.GetGameCondition();
+            GameCondition? condition = _gameQueries.GetGameCondition();
 
             switch (condition)
             {
                 case GameCondition.CanWin:
                     Win();
-                break;
+                    break;
+                case GameCondition.ShouldBlock:
+                    Block();
+                    break;
+                case GameCondition.CanFork:
+                    Fork();
+                    break;
             }
+        }
+
+        private void Fork()
+        {
+            _gameCommands.Block();
+        }
+
+        private void Block()
+        {
+            _gameCommands.Block();
         }
 
         private void Win()

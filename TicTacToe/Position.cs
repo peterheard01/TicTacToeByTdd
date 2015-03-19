@@ -10,6 +10,16 @@ namespace TicTacToe
             _pos = visualPosition - 1;
         }
 
+        public bool IsCentre
+        {
+            get { return VisualPosition == 5; }
+        }
+
+        public bool IsCorner
+        {
+            get { return VisualPosition == 1 || VisualPosition == 3 || VisualPosition == 7 || VisualPosition == 9; }
+        }
+
         private int _pos { get; set; }
 
         public int VisualPosition

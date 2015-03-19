@@ -15,10 +15,13 @@ namespace TicTacToe
 
         internal void Win()
         {
-            Line winningLine = _gameQueries.FindWinningLine();
-            var emptySpace = winningLine.Positions.Single(pos => pos.Symbol == " ");
-            emptySpace.Place(_gameState.ComputerSymbol);
+            _gameQueries.FindComputerWinningLine().Positions.Single(pos => pos.Symbol == " ").Place(_gameState.ComputerSymbol);
         }
 
+
+        internal void Block()
+        {
+            _gameQueries.FindPlayerWinningLine().Positions.Single(pos => pos.Symbol == " ").Place(_gameState.ComputerSymbol);
+        }
     }
 }
