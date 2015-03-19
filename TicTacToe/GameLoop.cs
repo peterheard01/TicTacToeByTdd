@@ -25,7 +25,7 @@ namespace TicTacToe
 
             if (_gameState.PlayerPositions.Count >= 4)
             {
-                _gameCommands.AttemptWinningLine2();
+                _gameCommands.AttemptWinningLine(1);
             }
             else if (_gameState.PlayerPositions.Count == 3)
             {
@@ -33,11 +33,11 @@ namespace TicTacToe
             }
             else if (_gameState.PlayerPositions.Count == 2)
             {
-                _gameCommands.BlockOrTriangle();
+                _gameCommands.TryBlockOrTriangle();
             }
             else if (_gameState.PlayerPositions.Count == 1)
             {
-                _gameCommands.PlacePieceInOppositeCorner();
+                _gameCommands.TryPlacePieceInOppositeCorner();
             }
 
         }
