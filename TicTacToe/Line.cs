@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    public enum Orientation{ Horizontal, Vertical }
-
     public class Line
     {
         public Line()
@@ -16,6 +14,5 @@ namespace TicTacToe
         }
 
         public List<Position> Positions { get; set; }
-        public Orientation Orientation { get; set; }
     }
 }

@@ -53,13 +53,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GameLoopTests\GameLoopTestsBase.cs" />
-    <Compile Include="GameLoopTests\GameLoopTestsCompFirstPlayerMarksCorner.cs" />
-    <Compile Include="GameLoopTests\GameLoopTieConditions.cs" />
+    <Compile Include="GameLoopTests.cs" />
     <Compile Include="GameSetupTests.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameLoopTests\GameLoopTestsCompFirstPlayerMarksEdge.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicTacToe\TicTacToe.csproj">

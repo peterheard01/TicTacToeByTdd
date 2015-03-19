@@ -33,32 +33,36 @@ namespace TicTacToe.Test
         }
 
 
-        [TestCase("y", " | | " +
-                       " | | " +
-                       " | | ")]
-        [TestCase("n", " | | " +
-                       " |o| " +
-                       " | | ")]
-        public void User_Prompted_To_Go_First(string userChoice, string board)
+        [TestCase("y", new[]{
+                            " ", " ", " ", 
+                            " ", " ", " ", 
+                            " ", " ", " "
+        })]
+        [TestCase("n", new[]{
+                            " ", " ", " ",
+                            " ", "x", " ",
+                            " ", " ", " "
+        })]
+        public void User_Prompted_To_Go_First(string userChoice, string[] board)
         {
             var game = new Game();
             game.GameState.GameStatus = GameStatus.PromptingUserGoFirst;
             game.ReadUserInput(userChoice);
 
-            Assert.AreEqual(game.GameState.Board, Helper.CreateBoardFromTestData(board));
+            Assert.AreEqual(game.GameState.Board, Helper.Setup(board));
             Assert.AreEqual(game.GameState.GameStatus, GameStatus.GameStarted);
             Assert.AreEqual(game.Prompt(), "Please make your move by typing 1-9");
         }
 
-        [Test]
-        public void Game_Started_Prompt_User_Move()
-        {
-            var game = new Game();
-            game.GameState.GameStatus = GameStatus.GameStarted;
+        //[Test]
+        //public void Game_Started_Prompt_User_Move()
+        //{
+        //    var game = new Game();
+        //    game.GameState.GameStatus = GameStatus.GameStarted;
 
-            Assert.AreEqual(game.GameState.GameStatus, GameStatus.GameStarted);
-            Assert.AreEqual(game.Prompt(), "Please make your move by typing 1-9");
-        }
+        //    Assert.AreEqual(game.GameState.GameStatus, GameStatus.GameStarted);
+        //    Assert.AreEqual(game.Prompt(), "Please make your move by typing 1-9");
+        //}
 
 
     }

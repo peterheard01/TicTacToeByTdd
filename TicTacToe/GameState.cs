@@ -11,17 +11,13 @@ namespace TicTacToe
 
         public string PlayerSymbol { get; set; }
 
-        public string[,] Board { get; set; }
-
-        public List<Position> PlayerPositions { get; set; }
-        
-        public List<Position> ComputerPositons { get; set; }
+        public string[] Board { get; set; }
 
         public GameStatus GameStatus { get; set; }
 
         public GameState()
         {
-            Board = new string[3, 3] { { " ", " ", " " }, { " ", " ", " " }, { " ", " ", " " } };
+            Board = new []{ "1 ", "2 ", "3 " , "4 ", "5 ", "6 ", "7 ", "8 ", "9 " };
         }
 
     }

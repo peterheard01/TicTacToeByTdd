@@ -7,105 +7,76 @@ namespace TicTacToe
     public class GameQueries
     {
         private GameState _gameState;
-        private CycleShift _cycleShift;
 
         public GameQueries(GameState gameStateArg)
         {
             _gameState = gameStateArg;
-            _cycleShift = new CycleShift();
         }
 
-        public Position CalculateOppositeDiagonalCorner(Position pos)
+        public GameCondition GetGameCondition()
         {
-            return new Position(_cycleShift.ShiftTwo(pos.Row), _cycleShift.ShiftTwo(pos.Column));
+            return GetLines().Any(CanWinOnLine) ? GameCondition.CanWin : GameCondition.ShouldBlock;
         }
 
-        public bool ComputerHasTwoDiagonally()
+        public Line FindWinningLine()
         {
-            var hasCorner = false;
-            var hasCenter = false;
-            foreach (var computerPosition in _gameState.ComputerPositons)
-            {
-                if (computerPosition.IsCenter)
-                {
-                    hasCenter = true;
-                }
-                if (IsCornerCell(computerPosition))
-                {
-                    hasCorner = true;
-                }
-            }
-            return hasCorner && hasCenter;
+            return GetLines().Where(CanWinOnLine).Single();
         }
 
-        public bool IsCornerCell(Position pos)
+        public List<Line> GetLines()
         {
-            return ((pos.Column + pos.Row) % 2) == 0 && !pos.IsCenter;
+            var lines = new List<Line>();
+
+            //horizontal
+            lines.Add(new Line() { Positions = new List<Position>() { new Position(_gameState, 1), new Position(_gameState, 2), new Position(_gameState, 3) } });
+            lines.Add(new Line() { Positions = new List<Position>() { new Position(_gameState, 4), new Position(_gameState, 5), new Position(_gameState, 6) } });
+            lines.Add(new Line() { Positions = new List<Position>() { new Position(_gameState, 7), new Position(_gameState, 8), new Position(_gameState, 9) } });
+
+            //vertical                                                             
+            lines.Add(new Line() { Positions = new List<Position>() { new Position(_gameState, 1), new Position(_gameState, 4), new Position(_gameState, 7) } });
+            lines.Add(new Line() { Positions = new List<Position>() { new Position(_gameState, 2), new Position(_gameState, 5), new Position(_gameState, 8) } });
+            lines.Add(new Line() { Positions = new List<Position>() { new Position(_gameState, 3), new Position(_gameState, 6), new Position(_gameState, 9) } });
+
+            //diagonal                                                                                               
+            lines.Add(new Line() { Positions = new List<Position>() { new Position(_gameState, 1), new Position(_gameState, 5), new Position(_gameState, 9) } });
+            lines.Add(new Line() { Positions = new List<Position>() { new Position(_gameState, 2), new Position(_gameState, 5), new Position(_gameState, 8) } });
+            lines.Add(new Line() { Positions = new List<Position>() { new Position(_gameState, 3), new Position(_gameState, 5), new Position(_gameState, 7) } });
+
+            return lines;
         }
 
-        public bool PlayerHasTwoInARowOnColumn()
+        public List<Position> GetPositions()
         {
-            return _gameState.PlayerPositions[0].Column == _gameState.PlayerPositions[1].Column;
+            var positions = new List<Position>();
+
+            positions.Add(new Position(_gameState, 1));
+            positions.Add(new Position(_gameState, 2));
+            positions.Add(new Position(_gameState, 3));
+            positions.Add(new Position(_gameState, 4));
+            positions.Add(new Position(_gameState, 5));
+            positions.Add(new Position(_gameState, 6));
+            positions.Add(new Position(_gameState, 7));
+            positions.Add(new Position(_gameState, 8));
+            positions.Add(new Position(_gameState, 9));
+
+            return positions;
         }
 
-        public bool PlayerHasTwoInARowOnRow()
+        private bool CanWinOnLine(Line line)
         {
-            return _gameState.PlayerPositions[0].Row == _gameState.PlayerPositions[1].Row;
+            return HasTwoComputerSymbols(line) && ContainsEmptySpace(line);
         }
 
-        public Position FindArrayPositionOfBoxNumberRef(int boxNumber)
+        private bool HasTwoComputerSymbols(Line line)
         {
-            Dictionary<int, Position> map = new Dictionary<int, Position>();
-            map.Add(1, new Position(0, 0));
-            map.Add(2, new Position(0, 1));
-            map.Add(3, new Position(0, 2));
-            map.Add(4, new Position(1, 0));
-            map.Add(5, new Position(1, 1));
-            map.Add(6, new Position(1, 2));
-            map.Add(7, new Position(2, 0));
-            map.Add(8, new Position(2, 1));
-            map.Add(9, new Position(2, 2));
-            var place = map.First(x => x.Key == boxNumber).Value;
-            return place;
+            return line.Positions.Count(pos => pos.Symbol == _gameState.ComputerSymbol) == 2;
         }
 
-        public List<Position> FindPositions(string symBolToCheck)
+        private bool ContainsEmptySpace(Line line)
         {
-            var retVals = new List<Position>();
-            for (int row = 0; row <= 2; row++)
-            {
-                for (int column = 0; column <= 2; column++)
-                {
-                    if (_gameState.Board[row, column] == symBolToCheck)
-                    {
-                        retVals.Add(new Position(row, column));
-                    }
-                }
-            }
-            return retVals;
+            return line.Positions.Count(pos => pos.Symbol == " ") == 1;
         }
 
 
-
-
-        internal List<Line> Lines()
-        {
-            var retVal = new List<Line>();
-            for (int row = 0; row <= 2; row++)
-            {
-                var line = new Line();
-                line.Orientation = Orientation.Horizontal;
-
-                for (int column = 0; column <= 2; column++)
-                {
-                    line.Positions.Add(new Position(row,column));
-                }
-                retVal.Add(line);
-
-            }
-
-            return retVal;
-
-        }
     }
 }

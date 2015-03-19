@@ -2,17 +2,24 @@ namespace TicTacToe
 {
     public class Position
     {
-        public int Row { get; set; }
-        public int Column { get; set; }
+        private GameState _gameState;
 
-        public bool IsCenter {
-            get { return Row == 1 && Column == 1; }
-        }
-
-        public Position(int rowArg, int colArg)
+        public Position(GameState gameStateArg, int visualPosition)
         {
-            Row = rowArg;
-            Column = colArg;
+            _gameState = gameStateArg;
+            _pos = visualPosition - 1;
         }
+
+        private int _pos { get; set; }
+
+        public int VisualPosition
+        {
+            get { return _pos + 1; }
+        }
+
+        public string Symbol {
+            get { return _gameState.Board[_pos].Substring(1, _gameState.Board[_pos].Length-1); }
+        }
+
     }
 }

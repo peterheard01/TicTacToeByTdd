@@ -9,37 +9,30 @@ namespace TicTacToe
         private GameCommands _gameCommands;
         private GameQueries _gameQueries;
 
-        public GameLoop(GameState gameStateArg)
+        public GameLoop(GameState gameStateArg,GameCommands gameCommandArg)
         {
             _gameState = gameStateArg;
-            _gameCommands = new GameCommands(_gameState);
+            _gameCommands = gameCommandArg;
             _gameQueries = new GameQueries(_gameState);
         }
 
-        public void RunGameLoop(string userInput)
+        public void RunGameLoop(string visualPosition)
         {
-            _gameCommands.PlacePlayer(userInput);
+            _gameCommands.PlaceSymbol(_gameState.PlayerSymbol, int.Parse(visualPosition));
 
-            _gameState.PlayerPositions = _gameQueries.FindPositions(_gameState.PlayerSymbol);
-            _gameState.ComputerPositons = _gameQueries.FindPositions(_gameState.ComputerSymbol);
+            GameCondition condition = _gameQueries.GetGameCondition();
 
-            if (_gameState.PlayerPositions.Count >= 4)
+            switch (condition)
             {
-                _gameCommands.AttemptWinningLine(1);
+                    case GameCondition.CanWin:
+                    Win();
+                    break;
             }
-            else if (_gameState.PlayerPositions.Count == 3)
-            {
-                _gameCommands.MakeWinningLine();
-            }
-            else if (_gameState.PlayerPositions.Count == 2)
-            {
-                _gameCommands.TryBlockOrTriangle();
-            }
-            else if (_gameState.PlayerPositions.Count == 1)
-            {
-                _gameCommands.TryPlacePieceInOppositeCorner();
-            }
+        }
 
+        private void Win()
+        {
+            _gameCommands.Win();
         }
     }
 }

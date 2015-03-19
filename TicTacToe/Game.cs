@@ -6,14 +6,16 @@ namespace TicTacToe
 {
     public class Game
     {
-        public GameState GameState { get; set; }
-
         private GameLoop _gameLoop;
+        private GameCommands _gameCommands;
+
+        public GameState GameState { get; set; }
 
         public Game()
         {
             GameState = new GameState();
-            _gameLoop = new GameLoop(GameState);
+            _gameCommands = new GameCommands(GameState);
+            _gameLoop = new GameLoop(GameState,_gameCommands);
         }
 
         public string Prompt()
@@ -56,12 +58,12 @@ namespace TicTacToe
         {
             if (userInput == "y")
             {
-                GameState = new GameState();
                 GameState.GameStatus = GameStatus.GameStarted;
             }
             else if (userInput == "n")
             {
-                GameState.Board = new string[3, 3] { { " ", " ", " " }, { " ", "o", " " }, { " ", " ", " " } };
+                GameState.ComputerSymbol = "x";
+                _gameCommands.PlaceSymbol(GameState.ComputerSymbol, 5);
                 GameState.GameStatus = GameStatus.GameStarted;
             }
         }
