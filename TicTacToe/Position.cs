@@ -17,12 +17,12 @@ namespace TicTacToe
 
         public bool IsCorner
         {
-            get { return VisualPosition == 1 || VisualPosition == 3 || VisualPosition == 7 || VisualPosition == 9; }
+            get { return VisualPosition%2 > 0 && !IsCentre; }
         }
 
         public bool IsEdge
         {
-            get { return VisualPosition == 2 || VisualPosition == 4 || VisualPosition == 6 || VisualPosition == 8; }
+            get { return VisualPosition%2 < 0; }
         }
 
         private int _pos { get; set; }
