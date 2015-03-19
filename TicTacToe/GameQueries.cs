@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace TicTacToe
@@ -25,34 +23,49 @@ namespace TicTacToe
             return null;
         }
 
+        public Line FindComputerWinningLine()
+        {
+            return GetLines().Where(ComputerCanWinOnLine).First();
+        }
+
+        public Line FindPlayerWinningLine()
+        {
+            return GetLines().Where(PlayerCanWinOnLine).First();
+        }
+
+        public Line FindForkableLine()
+        {
+            return GetLines().Where(IsForkableByComputer).First();
+        }
+
         private bool ComputerCanTakeEdge()
         {
-            return GetPositions().Any(pos => pos.IsEdge && pos.Symbol == " ");
+            return GetPositions().Any(pos => pos.IsEdge && pos.Symbol == GameConstants.EmptySpace);
         }
 
         private bool ComputerCanTakeCorner()
         {
-            return GetPositions().Any(pos => pos.IsCorner && pos.Symbol == " ");
+            return GetPositions().Any(pos => pos.IsCorner && pos.Symbol == GameConstants.EmptySpace);
         }
 
         private bool ComputerCanTakeCentre()
         {
-            return GetPositions().Any(pos => pos.IsCentre && pos.Symbol == " ");
+            return GetPositions().Any(pos => pos.IsCentre && pos.Symbol == GameConstants.EmptySpace);
         }
 
         private bool ComputerCanWinOnLine(Line line)
         {
-            return Has(line, _gameState.ComputerSymbol, 2) && ContainsEmptySpace(line);
+            return Has(line, _gameState.ComputerSymbol, 2) && Has(line, GameConstants.EmptySpace, 1);
         }
 
         private bool ShouldBlockPlayerOnLine(Line line)
         {
-            return Has(line, _gameState.PlayerSymbol, 2) && ContainsEmptySpace(line);
+            return Has(line, _gameState.PlayerSymbol, 2) && Has(line, GameConstants.EmptySpace, 1);
         }
 
         private bool PlayerCanWinOnLine(Line line)
         {
-            return Has(line, _gameState.PlayerSymbol, 2) && ContainsEmptySpace(line);
+            return Has(line, _gameState.PlayerSymbol, 2) && Has(line, GameConstants.EmptySpace, 1);
         }
 
         private bool ComputerCanFork()
@@ -62,7 +75,7 @@ namespace TicTacToe
 
         private bool IsForkableByComputer(Line lineArg)
         {
-            return Has(lineArg, " ", 2) && Has(lineArg, _gameState.ComputerSymbol, 1) && lineArg.Positions.Any(pos => pos.Symbol == _gameState.ComputerSymbol && pos.IsCorner);
+            return Has(lineArg, GameConstants.EmptySpace, 2) && Has(lineArg, _gameState.ComputerSymbol, 1) && lineArg.Positions.Any(pos => pos.Symbol == _gameState.ComputerSymbol && pos.IsCorner);
         }
 
         private bool HasCentrePosition(string symbolArg)
@@ -114,24 +127,5 @@ namespace TicTacToe
             return line.Positions.Count(pos => pos.Symbol == symbolArg) == count;
         }
 
-        private bool ContainsEmptySpace(Line line)
-        {
-            return line.Positions.Count(pos => pos.Symbol == " ") == 1;
-        }
-
-        public Line FindComputerWinningLine()
-        {
-            return GetLines().Where(ComputerCanWinOnLine).First();
-        }
-
-        public Line FindPlayerWinningLine()
-        {
-            return GetLines().Where(PlayerCanWinOnLine).First();
-        }
-
-        internal Line FindForkableLine()
-        {
-            return GetLines().Where(IsForkableByComputer).First();
-        }
     }
 }
