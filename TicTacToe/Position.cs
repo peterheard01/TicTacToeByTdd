@@ -20,6 +20,11 @@ namespace TicTacToe
             get { return VisualPosition == 1 || VisualPosition == 3 || VisualPosition == 7 || VisualPosition == 9; }
         }
 
+        public bool IsEdge
+        {
+            get { return VisualPosition == 2 || VisualPosition == 4 || VisualPosition == 6 || VisualPosition == 8; }
+        }
+
         private int _pos { get; set; }
 
         public int VisualPosition

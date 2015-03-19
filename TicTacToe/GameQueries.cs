@@ -19,13 +19,47 @@ namespace TicTacToe
             if (GetLines().Any(ComputerCanWinOnLine)) return GameCondition.CanWin;
             if (GetLines().Any(ShouldBlockPlayerOnLine)) return GameCondition.ShouldBlock;
             if (ComputerCanFork()) return GameCondition.CanFork;
+            if (ComputerCanTakeCentre()) return GameCondition.CanTakeCentre;
+            if (ComputerCanTakeCorner()) return GameCondition.CanTakeCorner;
+            if (ComputerCanTakeEdge()) return GameCondition.CanTakeEdge;
             return null;
+        }
+
+        private bool ComputerCanTakeEdge()
+        {
+            return GetPositions().Any(pos => pos.IsEdge && pos.Symbol == " ");
+        }
+
+        private bool ComputerCanTakeCorner()
+        {
+            return GetPositions().Any(pos => pos.IsCorner && pos.Symbol == " ");
+        }
+
+        private bool ComputerCanTakeCentre()
+        {
+            return GetPositions().Any(pos => pos.IsCentre && pos.Symbol == " ");
+        }
+
+        private bool ComputerCanWinOnLine(Line line)
+        {
+            return Has(line, _gameState.ComputerSymbol, 2) && ContainsEmptySpace(line);
+        }
+
+        private bool ShouldBlockPlayerOnLine(Line line)
+        {
+            var blah = Has(line, _gameState.PlayerSymbol, 2) && ContainsEmptySpace(line);
+
+            return blah;
+        }
+
+        private bool PlayerCanWinOnLine(Line line)
+        {
+            return Has(line, _gameState.PlayerSymbol, 2) && ContainsEmptySpace(line);
         }
 
         private bool ComputerCanFork()
         {
             return HasCentrePosition(_gameState.ComputerSymbol) && GetLines().Any(IsForkableByComputer);
-
         }
 
         private bool IsForkableByComputer(Line lineArg)
@@ -36,31 +70,6 @@ namespace TicTacToe
         private bool HasCentrePosition(string symbolArg)
         {
             return GetPositions().Any(x => x.IsCentre && x.Symbol == symbolArg);
-        }
-
-        private bool ShouldBlockPlayerOnLine(Line line)
-        {
-            return Has(line, _gameState.PlayerSymbol,2) && ContainsEmptySpace(line);
-        }
-
-        public Line FindComputerWinningLine()
-        {
-            return GetLines().Where(ComputerCanWinOnLine).First();
-        }
-
-        public Line FindPlayerWinningLine()
-        {
-            return GetLines().Where(PlayerCanWinOnLine).First();
-        }
-
-        private bool ComputerCanWinOnLine(Line line)
-        {
-            return Has(line, _gameState.ComputerSymbol,2) && ContainsEmptySpace(line);
-        }
-
-        private bool PlayerCanWinOnLine(Line line)
-        {
-            return Has(line, _gameState.PlayerSymbol,2) && ContainsEmptySpace(line);
         }
 
         public List<Line> GetLines()
@@ -110,6 +119,21 @@ namespace TicTacToe
         private bool ContainsEmptySpace(Line line)
         {
             return line.Positions.Count(pos => pos.Symbol == " ") == 1;
+        }
+
+        public Line FindComputerWinningLine()
+        {
+            return GetLines().Where(ComputerCanWinOnLine).First();
+        }
+
+        public Line FindPlayerWinningLine()
+        {
+            return GetLines().Where(PlayerCanWinOnLine).First();
+        }
+
+        internal Line FindForkableLine()
+        {
+            return GetLines().Where(IsForkableByComputer).First();
         }
     }
 }

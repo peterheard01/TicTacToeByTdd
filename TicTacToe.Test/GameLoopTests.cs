@@ -70,7 +70,6 @@ namespace TicTacToe.Test
             CollectionAssert.AreEqual(_game.GameState.Board, end);
         }
 
-
         [TestCase(new[]
         {
             "o", " ", " ", 
@@ -120,8 +119,58 @@ namespace TicTacToe.Test
             "o", " ", "x", 
             " ", "x", " ", 
             " ", "o", "x"
-        })]//test block [first diagonal]
+        })]//test fork 1
+        [TestCase(new[]
+        {
+            " ", " ", "x", 
+            " ", "x", " ", 
+            "o", " ", " "
+        }, "6", new[]
+        {
+            "x", " ", "x", 
+            " ", "x", "o", 
+            "o", " ", " "
+        })]//test fork 2
         public void Test_Fork(string[] start, string userInput, string[] end)
+        {
+            GameStarted(start, userInput, end);
+            CollectionAssert.AreEqual(_game.GameState.Board, end);
+        }
+
+        [TestCase(new[]
+        {
+            " ", " ", "x", 
+            " ", " ", " ", 
+            "o", " ", " "
+        }, "6", new[]
+        {
+            " ", " ", "x", 
+            " ", "x", "o", 
+            "o", " ", " "
+        })]//take centre
+        [TestCase(new[]
+        {
+            " ", " ", "x", 
+            " ", " ", " ", 
+            "o", " ", " "
+        }, "5", new[]
+        {
+            "x", " ", "x", 
+            " ", "o", " ", 
+            "o", " ", " "
+        })]//take corner
+        [TestCase(new[]
+        {
+            "x", " ", " ", 
+            " ", " ", " ", 
+            " ", "x", "o"
+        }, "5", new[]
+        {
+            "x", " ", "x", 
+            " ", "o", " ", 
+            " ", "x", "o"
+        })]//take corner
+        public void Test_Take_Centre_Or_Edge(string[] start, string userInput, string[] end)
         {
             GameStarted(start, userInput, end);
             CollectionAssert.AreEqual(_game.GameState.Board, end);

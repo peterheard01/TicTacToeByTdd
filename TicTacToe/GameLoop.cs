@@ -32,12 +32,36 @@ namespace TicTacToe
                 case GameCondition.CanFork:
                     Fork();
                     break;
+                case GameCondition.CanTakeCentre:
+                    TakeCentre();
+                    break;
+                case GameCondition.CanTakeCorner:
+                    TakeCorner();
+                    break;
+                case GameCondition.CanTakeEdge:
+                    TakeEdge();
+                    break;
             }
+        }
+
+        private void TakeEdge()
+        {
+            _gameCommands.TakeEdge();
+        }
+
+        private void TakeCorner()
+        {
+            _gameCommands.TakeCorner();
+        }
+
+        private void TakeCentre()
+        {
+            _gameCommands.TakeCentre();
         }
 
         private void Fork()
         {
-            _gameCommands.Block();
+            _gameCommands.Fork();
         }
 
         private void Block()

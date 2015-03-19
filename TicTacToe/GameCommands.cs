@@ -18,10 +18,29 @@ namespace TicTacToe
             _gameQueries.FindComputerWinningLine().Positions.Single(pos => pos.Symbol == " ").Place(_gameState.ComputerSymbol);
         }
 
-
         internal void Block()
         {
             _gameQueries.FindPlayerWinningLine().Positions.Single(pos => pos.Symbol == " ").Place(_gameState.ComputerSymbol);
+        }
+
+        internal void Fork()
+        {
+            _gameQueries.FindForkableLine().Positions.First(pos => pos.Symbol == " " && pos.IsCorner).Place(_gameState.ComputerSymbol);
+        }
+
+        internal void TakeCentre()
+        {
+            _gameQueries.GetPositions().Single(pos => pos.IsCentre && pos.Symbol == " ").Place(_gameState.ComputerSymbol);
+        }
+
+        internal void TakeCorner()
+        {
+            _gameQueries.GetPositions().First(pos => pos.IsCorner && pos.Symbol == " ").Place(_gameState.ComputerSymbol);
+        }
+
+        internal void TakeEdge()
+        {
+            _gameQueries.GetPositions().First(pos => pos.IsEdge && pos.Symbol == " ").Place(_gameState.ComputerSymbol);
         }
     }
 }

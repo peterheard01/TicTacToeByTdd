@@ -2,6 +2,6 @@
 {
     public enum GameCondition
     {
-        CanWin, ShouldBlock, CanFork
+        CanWin, ShouldBlock, CanFork, CanTakeCentre, CanTakeCorner, CanTakeEdge
     }
 }
