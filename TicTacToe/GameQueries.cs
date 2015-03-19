@@ -76,7 +76,5 @@ namespace TicTacToe
         {
             return line.Positions.Count(pos => pos.Symbol == " ") == 1;
         }
-
-
     }
 }

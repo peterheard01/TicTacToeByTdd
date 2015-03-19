@@ -17,15 +17,8 @@ namespace TicTacToe
         {
             Line winningLine = _gameQueries.FindWinningLine();
             var emptySpace = winningLine.Positions.Single(pos => pos.Symbol == " ");
-            PlaceSymbol(_gameState.ComputerSymbol, emptySpace.VisualPosition);
+            emptySpace.Place(_gameState.ComputerSymbol);
         }
-
-        internal void PlaceSymbol(string symbolArg, int visualPositionArg)
-        {
-            var foundPosition = _gameQueries.GetPositions().Single(p => p.VisualPosition == visualPositionArg);
-            _gameState.Board[foundPosition.VisualPosition - 1] = visualPositionArg + symbolArg;
-        }
-
 
     }
 }

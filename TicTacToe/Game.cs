@@ -8,6 +8,7 @@ namespace TicTacToe
     {
         private GameLoop _gameLoop;
         private GameCommands _gameCommands;
+        private GameQueries _gameQueries;
 
         public GameState GameState { get; set; }
 
@@ -15,7 +16,8 @@ namespace TicTacToe
         {
             GameState = new GameState();
             _gameCommands = new GameCommands(GameState);
-            _gameLoop = new GameLoop(GameState,_gameCommands);
+            _gameQueries = new GameQueries(GameState);
+            _gameLoop = new GameLoop(GameState, _gameCommands, _gameQueries);
         }
 
         public string Prompt()
@@ -63,7 +65,7 @@ namespace TicTacToe
             else if (userInput == "n")
             {
                 GameState.ComputerSymbol = "x";
-                _gameCommands.PlaceSymbol(GameState.ComputerSymbol, 5);
+                 _gameQueries.GetPositions().Single(x => x.VisualPosition == 5).Place(GameState.ComputerSymbol);
                 GameState.GameStatus = GameStatus.GameStarted;
             }
         }

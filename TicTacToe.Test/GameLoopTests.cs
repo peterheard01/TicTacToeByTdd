@@ -30,7 +30,7 @@ namespace TicTacToe.Test
             "x", "o", " ", 
             "o", "x", " ", 
             "o", " ", "x"
-        })]//test win
+        })]//test win [first diagonal]
         [TestCase(new[]
         {
             " ", "x", "o", 
@@ -41,7 +41,7 @@ namespace TicTacToe.Test
             " ", "x", "o", 
             "o", "x", " ", 
             " ", "x", "o"
-        })]//test win
+        })]//test win [first vertical]
         [TestCase(new[]
         {
             "x", "x", " ", 
@@ -52,20 +52,21 @@ namespace TicTacToe.Test
             "x", "x", "x", 
             "o", "o", " ", 
             " ", "o", " "
-        })]//test win
+        })]//test win [first horizontal]
+
         [TestCase(new[]
         {
-            "x", "x", "o", 
-            "o", " ", " ", 
-            "o", " ", "x"
-        }, "8", new[]
+            "x", "x", " ", 
+            "o", "o", " ", 
+            "o", "x", " "
+        }, "9", new[]
         {
-            "x", "x", "o", 
-            "o", "x", " ", 
-            "o", "o", "x"
-        })]//test win
+            "x", "x", "x", 
+            "o", "o", " ", 
+            "o", "x", "o"
+        })]//test win [first horizontal]
 
-        public void Tests(string[] start, string userInput, string[] end)
+        public void Test_Win(string[] start, string userInput, string[] end)
         {
             _game.GameState.Board = Helper.Setup(start);
             _game.ReadUserInput(userInput);

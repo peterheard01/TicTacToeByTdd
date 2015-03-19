@@ -21,5 +21,9 @@ namespace TicTacToe
             get { return _gameState.Board[_pos].Substring(1, _gameState.Board[_pos].Length-1); }
         }
 
+        internal void Place(string symbolArg)
+        {
+            _gameState.Board[_pos] = VisualPosition+symbolArg;
+        }
     }
 }
