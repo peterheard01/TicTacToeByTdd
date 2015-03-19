@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.InteropServices;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 
 namespace TicTacToe.Test
@@ -46,6 +43,8 @@ namespace TicTacToe.Test
         public void User_Prompted_To_Go_First(string userChoice, string[] board)
         {
             var game = new Game();
+            game.GameState.PlayerSymbol = "o";
+            game.GameState.ComputerSymbol = "x";
             game.GameState.GameStatus = GameStatus.PromptingUserGoFirst;
             game.ReadUserInput(userChoice);
 
@@ -54,15 +53,15 @@ namespace TicTacToe.Test
             Assert.AreEqual(game.Prompt(), "Please make your move by typing 1-9");
         }
 
-        //[Test]
-        //public void Game_Started_Prompt_User_Move()
-        //{
-        //    var game = new Game();
-        //    game.GameState.GameStatus = GameStatus.GameStarted;
+        [Test]
+        public void Game_Started_Prompt_User_Move()
+        {
+            var game = new Game();
+            game.GameState.GameStatus = GameStatus.GameStarted;
 
-        //    Assert.AreEqual(game.GameState.GameStatus, GameStatus.GameStarted);
-        //    Assert.AreEqual(game.Prompt(), "Please make your move by typing 1-9");
-        //}
+            Assert.AreEqual(game.GameState.GameStatus, GameStatus.GameStarted);
+            Assert.AreEqual(game.Prompt(), "Please make your move by typing 1-9");
+        }
 
 
     }

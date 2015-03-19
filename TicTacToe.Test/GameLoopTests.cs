@@ -176,5 +176,22 @@ namespace TicTacToe.Test
             CollectionAssert.AreEqual(_game.GameState.Board, end);
         }
 
+        [TestCase(new[]
+        {
+            " ", " ", " ", 
+            " ", "x", " ", 
+            " ", " ", " "
+        }, "3", new[]
+        {
+            "x", " ", "o", 
+            " ", "x", " ", 
+            " ", " ", " "
+        })]//take corner
+        public void Bugs(string[] start, string userInput, string[] end)
+        {
+            GameStarted(start, userInput, end);
+            CollectionAssert.AreEqual(_game.GameState.Board, end);
+        }
+
     }
 }

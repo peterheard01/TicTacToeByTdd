@@ -47,9 +47,7 @@ namespace TicTacToe
 
         private bool ShouldBlockPlayerOnLine(Line line)
         {
-            var blah = Has(line, _gameState.PlayerSymbol, 2) && ContainsEmptySpace(line);
-
-            return blah;
+            return Has(line, _gameState.PlayerSymbol, 2) && ContainsEmptySpace(line);;
         }
 
         private bool PlayerCanWinOnLine(Line line)

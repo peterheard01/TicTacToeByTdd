@@ -24,54 +24,26 @@ namespace TicTacToe
             switch (condition)
             {
                 case GameCondition.CanWin:
-                    Win();
+                    _gameCommands.Win();
                     break;
                 case GameCondition.ShouldBlock:
-                    Block();
+                    _gameCommands.Block();
                     break;
                 case GameCondition.CanFork:
-                    Fork();
+                    _gameCommands.Fork();
                     break;
                 case GameCondition.CanTakeCentre:
-                    TakeCentre();
+                    _gameCommands.TakeCentre();
                     break;
                 case GameCondition.CanTakeCorner:
-                    TakeCorner();
+                    _gameCommands.TakeCorner();
                     break;
                 case GameCondition.CanTakeEdge:
-                    TakeEdge();
+                    _gameCommands.TakeEdge();
                     break;
             }
         }
 
-        private void TakeEdge()
-        {
-            _gameCommands.TakeEdge();
-        }
 
-        private void TakeCorner()
-        {
-            _gameCommands.TakeCorner();
-        }
-
-        private void TakeCentre()
-        {
-            _gameCommands.TakeCentre();
-        }
-
-        private void Fork()
-        {
-            _gameCommands.Fork();
-        }
-
-        private void Block()
-        {
-            _gameCommands.Block();
-        }
-
-        private void Win()
-        {
-            _gameCommands.Win();
-        }
     }
 }
